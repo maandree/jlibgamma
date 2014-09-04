@@ -203,6 +203,18 @@ public class CRTCInformation
 	this.connector_type       = ConnectorType.VALUES[ints[22]];
 	this.connector_type_error = make_error(ints[23]);
 	this.gamma_error          = make_error(ints[24]);
+	
+	this.has_error = (this.edid_error           != null)
+	              || (this.width_mm_error       != null)
+	              || (this.height_mm_error      != null)
+	              || (this.width_mm_edid_error  != null)
+	              || (this.height_mm_edid_error != null)
+	              || (this.gamma_size_error     != null)
+	              || (this.gamma_depth_error    != null)
+	              || (this.gamma_support_error  != null)
+	              || (this.subpixel_order_error != null)
+	              || (this.connector_name_error != null)
+	              || (this.connector_type_error != null);
     }
     
     
@@ -451,6 +463,12 @@ public class CRTCInformation
      * {@link #blue_gamma}, {@code null} on success.
      */
     public final LibgammaException gamma_error;
+    
+    
+    /**
+     * Whether any of the error fields are non-{@code null}.
+     */
+    public final boolean has_error;
     
     
     
