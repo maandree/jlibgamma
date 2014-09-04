@@ -452,5 +452,41 @@ public class CRTCInformation
      */
     public final LibgammaException gamma_error;
     
+    
+    
+    /**
+     * Convert a raw representation of an EDID to a lowercase hexadecimal representation.
+     * 
+     * @param   edid    The EDID in raw representation.
+     * @return          The EDID in lowercase hexadecimal representation,
+     */
+    public static String behex(byte[] edid)
+    {
+	char[] rc = new char[edid.length * 2];
+	for (int i = 0; i < edid.length; i++)
+	{   rc[i * 2 + 0] = "0123456789abcdef".charAt((edid[i] >> 4) & 15);
+	    rc[i * 2 + 1] = "0123456789abcdef".charAt((edid[i] >> 0) & 15);
+	}
+	return new String(rc);
+    }
+    
+    /**
+     * Convert an hexadecimal representation of an EDID to a raw representation.
+     * 
+     * @param   edid  The EDID in hexadecimal representation.
+     * @return        The EDID in raw representation, it will be half the length
+     *                of <tt>edid</tt> (the input value).
+     */
+    public static byte[] unhex(String edid)
+    {
+	byte[] rc = new byte[edid.length() / 2];
+	edid = edid.toLowerCase();
+	for (int i = 0; i < rc.length; i++)
+	{   rc[i]  = (byte)("0123456789abcdef".indexOf(edid.charAt(i * 2 + 0)) << 4);
+	    rc[i] |= (byte)("0123456789abcdef".indexOf(edid.charAt(i * 2 + 1)) << 0);
+	}
+	return rc;
+    }
+    
 }
 
