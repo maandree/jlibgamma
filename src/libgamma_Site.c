@@ -18,6 +18,10 @@
 #include "libgamma_Site.h"
 
 
+#define J  JNIEnv* env, jclass class
+
+
+
 /**
  * Create a site state.
  * 
@@ -27,7 +31,7 @@
  *                  Element 1:  The value for {@link #partitions_available}
  *                  Element 2:  Error code, zero on success.
  */
-jlongArray Java_libgamma_Site_libgamma_1site_1create(JNIEnv *, jclass, jint, jstring);
+jlongArray Java_libgamma_Site_libgamma_1site_1create(J, jint method, jstring site);
 
 
 /**
@@ -36,7 +40,7 @@ jlongArray Java_libgamma_Site_libgamma_1site_1create(JNIEnv *, jclass, jint, jst
  * 
  * @param  address  The site state.
  */
-void Java_libgamma_Site_libgamma_1site_1free(JNIEnv *, jclass, jlong);
+void Java_libgamma_Site_libgamma_1site_1free(J, jlong address);
 
 
 /**
@@ -45,5 +49,5 @@ void Java_libgamma_Site_libgamma_1site_1free(JNIEnv *, jclass, jlong);
  * @param   address  The site state.
  * @return           Zero on success, and error code on failure.
  */
-jint Java_libgamma_Site_libgamma_1site_1restore(JNIEnv *, jclass, jlong);
+jint Java_libgamma_Site_libgamma_1site_1restore(J, jlong address);
 

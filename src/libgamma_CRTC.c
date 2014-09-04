@@ -18,6 +18,10 @@
 #include "libgamma_CRTC.h"
 
 
+#define J  JNIEnv* env, jclass class
+
+
+
 /**
  * Create a CRTC state.
  * 
@@ -26,7 +30,7 @@
  * @return             Element 0:  The value for {@link #address}.
  *                     Element 1:  Error code, zero on success.
  */
-jlongArray Java_libgamma_CRTC_libgamma_1crtc_1create(JNIEnv *, jclass, jlong, jint);
+jlongArray Java_libgamma_CRTC_libgamma_1crtc_1create(J, jlong partition, jint crtc);
 
 
 /**
@@ -35,7 +39,7 @@ jlongArray Java_libgamma_CRTC_libgamma_1crtc_1create(JNIEnv *, jclass, jlong, ji
  * 
  * @param  address  The CRTC state.
  */
-void Java_libgamma_CRTC_libgamma_1crtc_1free(JNIEnv *, jclass, jlong);
+void Java_libgamma_CRTC_libgamma_1crtc_1free(J, jlong address);
 
 
 /**
@@ -44,7 +48,7 @@ void Java_libgamma_CRTC_libgamma_1crtc_1free(JNIEnv *, jclass, jlong);
  * @param   address  The CRTC state.
  * @return           Zero on success, and error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1restore(JNIEnv *, jclass, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1restore(J, jlong address);
 
 
 /**
@@ -54,7 +58,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1restore(JNIEnv *, jclass, jlong);
  * @param   fields  OR:ed identifiers for the information about the CRTC that should be read.
  * @return          Input parameters for the constructor of {@link CRTCInformation}
  */
-jobjectArray Java_libgamma_CRTC_libgamma_1get_1crtc_1information(JNIEnv *, jclass, jlong, jint);
+jobjectArray Java_libgamma_CRTC_libgamma_1get_1crtc_1information(J, jlong crtc, jint fields);
 
 
 
@@ -65,7 +69,7 @@ jobjectArray Java_libgamma_CRTC_libgamma_1get_1crtc_1information(JNIEnv *, jclas
  * @param   ramps    The gamma ramps to fill with the current values
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps8(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps8(J, jlong address, jlong ramps);
 
 
 /**
@@ -75,7 +79,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps8(JNIEnv *, jclass, jlo
  * @param   ramps    The gamma ramps to apply.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps8(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps8(J, jlong address, jlong ramps);
 
 
 
@@ -86,7 +90,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps8(JNIEnv *, jclass, jlo
  * @param   ramps    The gamma ramps to fill with the current values
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps16(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps16(J, jlong address, jlong ramps);
 
 
 /**
@@ -96,7 +100,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps16(JNIEnv *, jclass, jl
  * @param   ramps    The gamma ramps to apply.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps16(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps16(J, jlong address, jlong ramps);
 
 
 
@@ -107,7 +111,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps16(JNIEnv *, jclass, jl
  * @param   ramps    The gamma ramps to fill with the current values.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps32(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps32(J, jlong address, jlong ramps);
 
 
 /**
@@ -117,7 +121,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps32(JNIEnv *, jclass, jl
  * @param   ramps    The gamma ramps to apply.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps32(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps32(J, jlong address, jlong ramps);
 
 
 
@@ -128,7 +132,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps32(JNIEnv *, jclass, jl
  * @param   ramps    The gamma ramps to fill with the current values.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps64(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps64(J, jlong address, jlong ramps);
 
 
 /**
@@ -138,7 +142,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps64(JNIEnv *, jclass, jl
  * @param   ramps    The gamma ramps to apply.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps64(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps64(J, jlong address, jlong ramps);
 
 
 
@@ -149,7 +153,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps64(JNIEnv *, jclass, jl
  * @param   ramps    The gamma ramps to apply.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsf(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsf(J, jlong address, jlong ramps);
 
 
 /**
@@ -159,7 +163,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsf(JNIEnv *, jclass, jlo
  * @param   ramps    The gamma ramps to fill with the current values.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsf(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsf(J, jlong address, jlong ramps);
 
 
 
@@ -170,7 +174,7 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsf(JNIEnv *, jclass, jlo
  * @param   ramps    The gamma ramps to fill with the current values.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsd(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsd(J, jlong address, jlong ramps);
 
 
 /**
@@ -180,5 +184,5 @@ jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsd(JNIEnv *, jclass, jlo
  * @param   ramps    The gamma ramps to apply.
  * @return           Zero on success, an error code on failure.
  */
-jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsd(JNIEnv *, jclass, jlong, jlong);
+jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsd(J, jlong address, jlong ramps);
 

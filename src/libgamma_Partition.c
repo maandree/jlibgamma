@@ -18,6 +18,10 @@
 #include "libgamma_Partition.h"
 
 
+#define J  JNIEnv* env, jclass class
+
+
+
 /**
  * Create a partition state.
  * 
@@ -27,7 +31,7 @@
  *                     Element 1:  The value for {@link #crtcs_available}
  *                     Element 2:  Error code, zero on success.
  */
-jlongArray Java_libgamma_Partition_libgamma_1partition_1create(JNIEnv *, jclass, jlong, jint);
+jlongArray Java_libgamma_Partition_libgamma_1partition_1create(J, jlong site, jint partition);
 
 
 /**
@@ -36,7 +40,7 @@ jlongArray Java_libgamma_Partition_libgamma_1partition_1create(JNIEnv *, jclass,
  * 
  * @param  address  The partition state.
  */
-void Java_libgamma_Partition_libgamma_1partition_1free(JNIEnv *, jclass, jlong);
+void Java_libgamma_Partition_libgamma_1partition_1free(J, jlong address);
 
 
 /**
@@ -45,5 +49,5 @@ void Java_libgamma_Partition_libgamma_1partition_1free(JNIEnv *, jclass, jlong);
  * @param   address  The partition state.
  * @return           Zero on success, and error code on failure.
  */
-jint Java_libgamma_Partition_libgamma_1partition_1restore(JNIEnv *, jclass, jlong);
+jint Java_libgamma_Partition_libgamma_1partition_1restore(J, jlong address);
 

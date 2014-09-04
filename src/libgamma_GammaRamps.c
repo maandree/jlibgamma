@@ -18,20 +18,8 @@
 #include "libgamma_GammaRamps.h"
 
 
-/**
- * Create and initialise a gamma ramp in the proper way that allows all adjustment
- * methods to read from and write to it without causing segmentation violation.
- * 
- * @param   red_size    The size of the encoding axis of the red gamma ramp.
- * @param   green_size  The size of the encoding axis of the green gamma ramp.
- * @param   blue_size   The size of the encoding axis of the blue gamma ramp.
- * @return              Element 0:  The address of the native object.
- *                      Element 1:  The address of the red gamma ramp.
- *                      Element 2:  The address of the green gamma ramp.
- *                      Element 3:  The address of the blue gamma ramp.
- *                      Element 4:  Zero on success, an error code on error.
- */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(JNIEnv *, jclass, jint, jint, jint);
+#define J  JNIEnv* env, jclass class
+
 
 
 /**
@@ -47,7 +35,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(JNIEnv *, jc
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(JNIEnv *, jclass, jint, jint, jint);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(J, jint red_size, jint green_size, jint blue_size);
 
 
 /**
@@ -63,7 +51,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(JNIEnv *, j
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(JNIEnv *, jclass, jint, jint, jint);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(J, jint red_size, jint green_size, jint blue_size);
 
 
 /**
@@ -79,7 +67,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(JNIEnv *, j
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(JNIEnv *, jclass, jint, jint, jint);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(J, jint red_size, jint green_size, jint blue_size);
 
 
 /**
@@ -95,7 +83,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(JNIEnv *, j
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(JNIEnv *, jclass, jint, jint, jint);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(J, jint red_size, jint green_size, jint blue_size);
 
 
 /**
@@ -111,7 +99,23 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(JNIEnv *, jc
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(JNIEnv *, jclass, jint, jint, jint);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(J, jint red_size, jint green_size, jint blue_size);
+
+
+/**
+ * Create and initialise a gamma ramp in the proper way that allows all adjustment
+ * methods to read from and write to it without causing segmentation violation.
+ * 
+ * @param   red_size    The size of the encoding axis of the red gamma ramp.
+ * @param   green_size  The size of the encoding axis of the green gamma ramp.
+ * @param   blue_size   The size of the encoding axis of the blue gamma ramp.
+ * @return              Element 0:  The address of the native object.
+ *                      Element 1:  The address of the red gamma ramp.
+ *                      Element 2:  The address of the green gamma ramp.
+ *                      Element 3:  The address of the blue gamma ramp.
+ *                      Element 4:  Zero on success, an error code on error.
+ */
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(J, jint red_size, jint green_size, jint blue_size);
 
 
 
@@ -123,7 +127,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(JNIEnv *, jc
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1free(JNIEnv *, jclass, jlong);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1free(J, jlong address);
 
 
 /**
@@ -134,7 +138,7 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1free(JNIEnv *, jclass, jl
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1free(JNIEnv *, jclass, jlong);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1free(J, jlong address);
 
 
 /**
@@ -145,7 +149,7 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1free(JNIEnv *, jclass, j
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1free(JNIEnv *, jclass, jlong);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1free(J, jlong address);
 
 
 /**
@@ -156,7 +160,7 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1free(JNIEnv *, jclass, j
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1free(JNIEnv *, jclass, jlong);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1free(J, jlong address);
 
 
 /**
@@ -167,7 +171,7 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1free(JNIEnv *, jclass, j
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1free(JNIEnv *, jclass, jlong);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1free(J, jlong address);
 
 
 /**
@@ -178,5 +182,5 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1free(JNIEnv *, jclass, jl
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1free(JNIEnv *, jclass, jlong);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1free(J, jlong address);
 

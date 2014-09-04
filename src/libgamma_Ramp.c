@@ -18,6 +18,10 @@
 #include "libgamma_Ramp.h"
 
 
+#define J  JNIEnv* env, jclass class
+
+
+
 /**
  * Read the value of a stop in an 8-bit ramp.
  * 
@@ -25,7 +29,7 @@
  * @param   stop     The index of the stop.
  * @return           The value of the stop.
  */
-jshort Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1get(JNIEnv *, jclass, jlong, jint);
+jshort Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1get(J, jlong address, jint stop);
 
 
 /**
@@ -35,7 +39,7 @@ jshort Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1get(JNIEnv *, jclass, jlong, 
  * @param   stop     The index of the stop.
  * @return           The value of the stop.
  */
-jint Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1get(JNIEnv *, jclass, jlong, jint);
+jint Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1get(J, jlong address, jint stop);
 
 
 /**
@@ -45,7 +49,7 @@ jint Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1get(JNIEnv *, jclass, jlong, j
  * @param   stop     The index of the stop.
  * @return           The value of the stop.
  */
-jlong Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1get(JNIEnv *, jclass, jlong, jint);
+jlong Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1get(J, jlong address, jint stop);
 
 
 /**
@@ -55,7 +59,7 @@ jlong Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1get(JNIEnv *, jclass, jlong, 
  * @param   stop     The index of the stop.
  * @return           The value of the stop.
  */
-jlong Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1get(JNIEnv *, jclass, jlong, jint);
+jlong Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1get(J, jlong address, jint stop);
 
 
 /**
@@ -65,7 +69,7 @@ jlong Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1get(JNIEnv *, jclass, jlong, 
  * @param   stop     The index of the stop.
  * @return           The value of the stop.
  */
-jfloat Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1get(JNIEnv *, jclass, jlong, jint);
+jfloat Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1get(J, jlong address, jint stop);
 
 
 /**
@@ -75,7 +79,7 @@ jfloat Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1get(JNIEnv *, jclass, jlong, 
  * @param   stop     The index of the stop.
  * @return           The value of the stop.
  */
-jdouble Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1get(JNIEnv *, jclass, jlong, jint);
+jdouble Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1get(J, jlong address, jint stop);
 
 
 
@@ -86,7 +90,7 @@ jdouble Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1get(JNIEnv *, jclass, jlong,
  * @param  stop     The index of the stop.
  * @param  value    The value of the stop.
  */
-void Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1set(JNIEnv *, jclass, jlong, jint, jshort);
+void Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1set(J, jlong address, jint stop, jshort value);
 
 
 /**
@@ -96,7 +100,7 @@ void Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1set(JNIEnv *, jclass, jlong, ji
  * @param  stop     The index of the stop.
  * @param  value    The value of the stop.
  */
-void Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1set(JNIEnv *, jclass, jlong, jint, jint);
+void Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1set(J, jlong address, jint stop, jint value);
 
 
 /**
@@ -106,7 +110,7 @@ void Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1set(JNIEnv *, jclass, jlong, j
  * @param  stop     The index of the stop.
  * @param  value    The value of the stop.
  */
-void Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1set(JNIEnv *, jclass, jlong, jint, jlong);
+void Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1set(J, jlong address, jint stop, jlong value);
 
 
 /**
@@ -116,7 +120,7 @@ void Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1set(JNIEnv *, jclass, jlong, j
  * @param  stop     The index of the stop.
  * @param  value    The value of the stop.
  */
-void Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1set(JNIEnv *, jclass, jlong, jint, jlong);
+void Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1set(J, jlong address, jint stop, jlong value);
 
 
 /**
@@ -126,7 +130,7 @@ void Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1set(JNIEnv *, jclass, jlong, j
  * @param  stop     The index of the stop.
  * @param  value    The value of the stop.
  */
-void Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1set(JNIEnv *, jclass, jlong, jint, jfloat);
+void Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1set(J, jlong address, jint stop, jfloat value);
 
 
 /**
@@ -136,5 +140,5 @@ void Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1set(JNIEnv *, jclass, jlong, ji
  * @param  stop     The index of the stop.
  * @param  value    The value of the stop.
  */
-void Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1set(JNIEnv *, jclass, jlong, jint, jdouble);
+void Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1set(J, jlong address, jint stop, jdouble value);
 

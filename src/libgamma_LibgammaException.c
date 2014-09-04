@@ -18,6 +18,10 @@
 #include "libgamma_LibgammaException.h"
 
 
+#define J  JNIEnv* env, jclass class
+
+
+
 /**
  * Returns the name of the definition associated with
  * a <tt>libgamma</tt> error code.
@@ -26,7 +30,7 @@
  * @return         The name of the definition associated with the error code,
  *                 {@code null} if the error code does not exist.
  */
-jstring Java_libgamma_LibgammaException_name_1of_1error(JNIEnv *, jclass, jint);
+jstring Java_libgamma_LibgammaException_name_1of_1error(J, jint value);
 
 
 /**
@@ -37,7 +41,7 @@ jstring Java_libgamma_LibgammaException_name_1of_1error(JNIEnv *, jclass, jint);
  * @return        The error code, zero if the name is {@code null}
  *                or does not refer to a <tt>libgamma</tt> error.
  */
-jint Java_libgamma_LibgammaException_value_1of_1error(JNIEnv *, jclass, jstring);
+jint Java_libgamma_LibgammaException_value_1of_1error(J, jstring name);
 
 
 /**
@@ -45,7 +49,7 @@ jint Java_libgamma_LibgammaException_value_1of_1error(JNIEnv *, jclass, jstring)
  * 
  * @return  The value that should go to {@link #group_gid}.
  */
-jint Java_libgamma_LibgammaException_libgamma_1group_1gid(JNIEnv *, jclass);
+jint Java_libgamma_LibgammaException_libgamma_1group_1gid(J);
 
 
 /**
@@ -53,7 +57,7 @@ jint Java_libgamma_LibgammaException_libgamma_1group_1gid(JNIEnv *, jclass);
  * 
  * @return  The value that should go to {@link #group_name}.
  */
-jstring Java_libgamma_LibgammaException_libgamma_1group_1name(JNIEnv *, jclass);
+jstring Java_libgamma_LibgammaException_libgamma_1group_1name(J);
 
 
 /**
@@ -62,5 +66,5 @@ jstring Java_libgamma_LibgammaException_libgamma_1group_1name(JNIEnv *, jclass);
  * @param   error_code  The error code.
  * @return              A textual description of the error code.
  */
-jstring Java_libgamma_LibgammaException_strerror(JNIEnv *, jclass, jint);
+jstring Java_libgamma_LibgammaException_strerror(J, jint error_code);
 

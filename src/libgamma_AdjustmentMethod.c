@@ -18,6 +18,10 @@
 #include "libgamma_AdjustmentMethod.h"
 
 
+#define J  JNIEnv* env, jclass class
+
+
+
 /**
  * List available adjustment methods by their order of preference based on the environment.
  * 
@@ -30,7 +34,7 @@
  *                     Other values invoke undefined behaviour.
  * @return             List available adjustment methods by their order of preference.
  */
-jintArray Java_libgamma_AdjustmentMethod_libgamma_1list_1methods(JNIEnv *, jclass, jint);
+jintArray Java_libgamma_AdjustmentMethod_libgamma_1list_1methods(J, jint operation);
 
 
 /**
@@ -40,7 +44,7 @@ jintArray Java_libgamma_AdjustmentMethod_libgamma_1list_1methods(JNIEnv *, jclas
  * @param   method  The adjustment method.
  * @return          Whether the adjustment method is available.
  */
-jint Java_libgamma_AdjustmentMethod_libgamma_1is_1method_1available(JNIEnv *, jclass, jint);
+jint Java_libgamma_AdjustmentMethod_libgamma_1is_1method_1available(J, jint method);
 
 
     
@@ -50,7 +54,7 @@ jint Java_libgamma_AdjustmentMethod_libgamma_1is_1method_1available(JNIEnv *, jc
  * @param   method  The adjustment method (display server and protocol).
  * @return          Input parameter to the constructor of {@link AdjustmentMethodCapabilities}.
  */
-jlong Java_libgamma_AdjustmentMethod_libgamma_1method_1capabilities(JNIEnv *, jclass, jint);
+jlong Java_libgamma_AdjustmentMethod_libgamma_1method_1capabilities(J, jint method);
 
 
 /**
@@ -60,7 +64,7 @@ jlong Java_libgamma_AdjustmentMethod_libgamma_1method_1capabilities(JNIEnv *, jc
  * @return          The default site, {@code null} if it cannot be determined or
  *                  if multiple sites are not supported by the adjustment method.
  */
-jstring Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site(JNIEnv *, jclass, jint);
+jstring Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site(J, jint method);
 
 
 /**
@@ -72,5 +76,5 @@ jstring Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site(JNIEnv *,
  *                  default site. {@code null} if there is none, that is,
  *                  if the method does not support multiple sites.
  */
-jstring Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site_1variable(JNIEnv *, jclass, jint);
+jstring Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site_1variable(J, jint method);
 
