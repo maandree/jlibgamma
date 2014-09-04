@@ -93,33 +93,33 @@ JAVAC_FLAGS = $(JAVACFLAGS) $(JAVA_OPTIMISE) $(JAVA_WARN)
 
 
 # Java classes
-RAMPS = Ramp16 Ramp32 Ramp64 Ramp8 Rampd Rampf
-SIMPLE = AdjustmentMethodCapabilities ConnectorType LibgammaException Ramp SubpixelOrder
-JAVA_OBJ = AdjustmentMethod CRTC CRTCInformation GammaRamps Libgamma Partition Site $(RAMPS) $(SIMPLE)
+JAVA_OBJ = AdjustmentMethod CRTC CRTCInformation GammaRamps Libgamma Partition Site         \
+           AdjustmentMethodCapabilities ConnectorType LibgammaException Ramp SubpixelOrder  \
+           Ramp16 Ramp32 Ramp64 Ramp8 Rampd Rampf
+
 
 
 .PHONY: all
-all: java
+all: lib
 
-.PHONY: java
-java: $(foreach O,$(JAVA_OBJ),obj/libgamma/$(O).class)
+.PHONY: lib
+lib: jar
 
-obj/libgamma/%.class: src/libgamma/%.java %
+.PHONY: jar
+jar: bin/jlibgamma.jar
+
+.PHONY: class
+class: $(foreach O,$(JAVA_OBJ),obj/libgamma/$(O).class)
+
+
+bin/jlibgamma.jar: class
+	@mkdir -p bin
+	cd obj; $(JAR) cf jlibgamma.jar $(foreach O,$(JAVA_OBJ),libgamma/$(O).class)
+	mv obj/jlibgamma.jar $@
+
+obj/libgamma/%.class: src/libgamma/%.java
 	@mkdir -p obj/libgamma
 	$(JAVAC) $(JAVAC_FLAGS) -cp src -s src -d obj $<
-
-# Dependencies
-.PHONY: AdjustmentMethod CRTCInformation CRTC GammaRamps Libgamma Partition Site $(RAMPS) $(SIMPLE)
-Libgamma:
-AdjustmentMethod: $(foreach C, Libgamma AdjustmentMethodCapabilities                  ,obj/libgamma/$(C).class)
-Site:             $(foreach C, Libgamma LibgammaException AdjustmentMethod            ,obj/libgamma/$(C).class)
-Partition:        $(foreach C, Libgamma LibgammaException Site                        ,obj/libgamma/$(C).class)
-CRTC:             $(foreach C, Libgamma LibgammaException Partition CRTCInformation   ,obj/libgamma/$(C).class)
-CRTCInformation:  $(foreach C, Libgamma LibgammaException SubpixelOrder ConnectorType ,obj/libgamma/$(C).class)
-GammaRamps:       $(foreach C, Libgamma LibgammaException Ramp $(RAMPS)               ,obj/libgamma/$(C).class)
-$(RAMPS):         $(foreach C, Libgamma Ramp                                          ,obj/libgamma/$(C).class)
-$(SIMPLE):        $(foreach C, Libgamma                                               ,obj/libgamma/$(C).class)
-
 
 
 .PHONY: clean
