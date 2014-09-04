@@ -97,19 +97,25 @@ JAVA_OBJ = AdjustmentMethod CRTC CRTCInformation GammaRamps Libgamma Partition S
            AdjustmentMethodCapabilities ConnectorType LibgammaException Ramp SubpixelOrder  \
            Ramp16 Ramp32 Ramp64 Ramp8 Rampd Rampf
 
+# Java classes with native functions
+JAVA_H = AdjustmentMethod CRTC GammaRamps LibgammaException Partition Ramp Site
+
 
 
 .PHONY: all
 all: lib
 
 .PHONY: lib
-lib: jar
+lib: jar headers
 
 .PHONY: jar
 jar: bin/jlibgamma.jar
 
 .PHONY: class
 class: $(foreach O,$(JAVA_OBJ),obj/libgamma/$(O).class)
+
+.PHONY: headers
+headers: $(foreach H,$(JAVA_H),obj/libgamma_$(H).h)
 
 
 bin/jlibgamma.jar: class
@@ -120,6 +126,10 @@ bin/jlibgamma.jar: class
 obj/libgamma/%.class: src/libgamma/%.java
 	@mkdir -p obj/libgamma
 	$(JAVAC) $(JAVAC_FLAGS) -cp src -s src -d obj $<
+
+obj/libgamma_%.h: obj/libgamma/%.class
+	$(JAVAH) -classpath obj -jni -d obj \
+	  $$(echo "$<" | sed -e 's:^obj/::' -e 's:.class$$::' | sed -e 's:/:.:g')
 
 
 .PHONY: clean

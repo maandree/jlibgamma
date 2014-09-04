@@ -13,6 +13,7 @@ BUILD DEPENDENCIES:
 	c99
 	make
 	coreutils
+	sed
 
 
 INSTALL DEPENDENCIES:
