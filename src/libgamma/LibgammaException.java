@@ -28,6 +28,7 @@ package libgamma;
  *   codes. It does however not contain system error codes.
  * </p>
  */
+@SuppressWarnings("serial")
 public class LibgammaException extends Exception
 {
     /**
