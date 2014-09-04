@@ -153,6 +153,16 @@ public enum AdjustmentMethod
 	return libgamma_method_default_site_variable(this.value);
     }
     
+    /**
+     * Return the capabilities of the adjustment method.
+     * 
+     * @return   The capabilities of the adjustment method.
+     */
+    public AdjustmentMethodCapabilities get_capabilities()
+    {
+	return new AdjustmentMethodCapabilities(libgamma_method_capabilities(this.value));
+    }
+    
     
     
     /**
@@ -200,6 +210,15 @@ public enum AdjustmentMethod
      * @return          Whether the adjustment method is available.
      */
     private static native int libgamma_is_method_available(int method);
+    
+    /**
+     * Return the capabilities of an adjustment method.
+     * 
+     * @param   method  The adjustment method (display server and protocol).
+     * @return          Input parameter to the constructor of {@link AdjustmentMethodCapabilities}.
+     */
+    private static native long libgamma_method_capabilities(int method);
+
     
     /**
      * Return the default site for an adjustment method.
