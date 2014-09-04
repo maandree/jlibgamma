@@ -52,7 +52,7 @@ endif
 # Platform dependent flags
 ifeq ($(PLATFORM),w32)
 SHARED = -mdll
-LDSO = -Wl,-soname,jlibgamma.$(SO).$(LIB_MAJOR)
+LDSO = -Wl,-soname,libgamma-java.$(SO).$(LIB_MAJOR)
 PIC =
 else
 ifeq ($(PLATFORM),osx)
@@ -61,7 +61,7 @@ LDSO =
 PIC = -fPIC
 else
 SHARED = -shared
-LDSO = -Wl,-soname,jlibgamma.$(SO).$(LIB_MAJOR)
+LDSO = -Wl,-soname,libgamma-java.$(SO).$(LIB_MAJOR)
 PIC = -fPIC
 endif
 endif
@@ -82,7 +82,10 @@ JAVA_WARN = -Xlint:all
 
 
 # Addition flags to use when compiling C code with JNI support
-JNI_FLAGS=-I$(JAVA_HOME)/include
+CC_JNI_FLAGS = -I$(JAVA_HOME)/include
+
+# Addition flags to use when linking natvie objets with JNI support
+LD_JNI_FLAGS =
 
 # Flags to use when compiling C code
 CC_FLAGS = -std=$(STD) $(C_OPTIMISE) $(CFLAGS) $(PIC) $(CPPFLAGS) $(WARN)
@@ -108,7 +111,10 @@ JAVA_H = AdjustmentMethod CRTC GammaRamps LibgammaException Partition Ramp Site
 all: lib
 
 .PHONY: lib
-lib: jar headers
+lib: jar so
+
+.PHONY: so
+so: bin/libgamma-java.$(SO).$(LIB_VERSION) bin/libgamma-java.$(SO).$(LIB_MAJOR) bin/libgamma-java.$(SO)
 
 .PHONY: jar
 jar: bin/jlibgamma.jar
@@ -132,6 +138,21 @@ obj/libgamma/%.class: src/libgamma/%.java
 obj/libgamma_%.h: obj/libgamma/%.class
 	$(JAVAH) -classpath obj -jni -d obj \
 	  $$(echo "$<" | sed -e 's:^obj/::' -e 's:.class$$::' | sed -e 's:/:.:g')
+
+obj/libgamma_%.o: src/libgamma_%.c obj/libgamma_%.h
+	$(CC) $(CC_FLAGS) $(CC_JNI_FLAGS) -iquote"obj" -c -o $@ $<
+
+bin/libgamma-java.$(SO).$(LIB_VERSION): $(foreach O,$(JAVA_H),obj/libgamma_$(O).o)
+	@mkdir -p bin
+	$(CC) $(LD_FLAGS) $(LD_JNI_FLAGS) $(SHARED) $(LDSO) -o $@ $<
+
+bin/libgamma-java.$(SO).$(LIB_MAJOR):
+	@mkdir -p bin
+	ln -sf libgamma-java.$(SO).$(LIB_VERSION) $@
+
+bin/libgamma-java.$(SO):
+	@mkdir -p bin
+	ln -sf libgamma-java.$(SO).$(LIB_VERSION) $@
 
 
 .PHONY: clean
