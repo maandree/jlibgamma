@@ -24,6 +24,16 @@ package libgamma;
 public class CRTCInformation
 {
     /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
+    /**
      * For a {@link CRTCInformation} fill in the values for {@link #edid}
      * and {@link #edid_length} and report errors to {@link #edid_error}.
      */

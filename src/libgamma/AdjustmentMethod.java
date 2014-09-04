@@ -80,6 +80,16 @@ public enum AdjustmentMethod
     
     
     /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
+    /**
      * The index of the last gamma method, neither it
      * nor any index before it may actually be supported
      * as it could have been disabled at compile-time

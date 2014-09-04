@@ -24,6 +24,16 @@ package libgamma;
 public class AdjustmentMethodCapabilities
 {
     /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
+    /**
      * Constructor.
      * 
      * @param  data  Low half:   the value of {@link #crtc_information}.

@@ -28,6 +28,16 @@ package libgamma;
 public class CRTC
 {
     /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
+    /**
      * Constructor.
      * 
      * @param  partition  The partition this CRTC belongs to.

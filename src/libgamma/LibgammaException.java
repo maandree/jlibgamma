@@ -32,6 +32,16 @@ package libgamma;
 public class LibgammaException extends Exception
 {
     /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
+    /**
      * This error code is never used. It is only provided
      * so you know its error code if you plan to iterate
      * over all <tt>libgamma</tt> error codes.

@@ -33,6 +33,16 @@ package libgamma;
 public class Partition
 {
     /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
+    /**
      * Constructor.
      * 
      * @param  site       The site this partition belongs to.

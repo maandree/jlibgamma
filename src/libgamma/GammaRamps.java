@@ -35,6 +35,16 @@ package libgamma;
 public class GammaRamps<T extends Ramp>
 {
     /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
+    /**
      * Constructor.
      * 
      * @param  red_size    The size of the encoding axis of the red gamma ramp.

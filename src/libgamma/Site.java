@@ -30,6 +30,16 @@ package libgamma;
 public class Site
 {
     /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
+    /**
      * Constructor.
      * 
      * @param  method  The adjustmet method.

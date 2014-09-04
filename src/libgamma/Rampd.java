@@ -24,6 +24,16 @@ package libgamma;
 public class Rampd extends Ramp
 {
     /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
+    /**
      * Constructor.
      * 
      * @param  address  The address of the native object.

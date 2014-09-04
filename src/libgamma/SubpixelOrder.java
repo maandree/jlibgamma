@@ -57,6 +57,17 @@ public enum SubpixelOrder
     
     ;
     
+    
+    /**
+     * Type initialiser.
+     */
+    static
+    {
+	Libgamma.initialise();
+    }
+    
+    
+    
     /**
      * Subpixel orders by their numerical values.
      */
