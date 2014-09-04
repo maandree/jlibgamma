@@ -17,6 +17,8 @@
  */
 #include "libgamma_AdjustmentMethod.h"
 
+#include <libgamma.h>
+
 
 #define J  JNIEnv* env, jclass class
 
