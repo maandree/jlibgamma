@@ -88,10 +88,10 @@ CC_JNI_FLAGS = -I$(JAVA_HOME)/include
 LD_JNI_FLAGS =
 
 # Flags to use when compiling C code
-CC_FLAGS = -std=$(STD) $(C_OPTIMISE) $(CFLAGS) $(PIC) $(CPPFLAGS) $(WARN)
+CC_FLAGS = -std=$(STD) $(C_OPTIMISE) $(CFLAGS) $(PIC) $(CPPFLAGS) $(C_WARN)
 
 # Flags to use when linking native objects
-LD_FLAGS = -lgamma -std=$(STD) $(C_OPTIMISE) $(LDFLAGS) $(WARN)
+LD_FLAGS = -lgamma -std=$(STD) $(C_OPTIMISE) $(LDFLAGS) $(C_WARN)
 
 # Flags to use when compiling Java code
 JAVAC_FLAGS = $(JAVACFLAGS) $(JAVA_OPTIMISE) $(JAVA_WARN)

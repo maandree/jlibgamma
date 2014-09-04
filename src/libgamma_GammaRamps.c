@@ -23,14 +23,7 @@
 #include <libgamma.h>
 
 
-#ifndef __GCC__
-# ifndef __attribute__
-#  define __attribute__(X)  /* empty */
-# endif
-#endif
-
-
-#define J  JNIEnv* env, jclass __attribute__((unused)) class
+#define J  JNIEnv* env, jclass class
 
 
 
@@ -108,6 +101,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(J, jint red_
   if (r != 0)
     return fail(env, r);
   return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+  (void) class;
 }
 
 
@@ -137,6 +131,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(J, jint red
   if (r != 0)
     return fail(env, r);
   return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+  (void) class;
 }
 
 
@@ -166,6 +161,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(J, jint red
   if (r != 0)
     return fail(env, r);
   return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+  (void) class;
 }
 
 
@@ -195,6 +191,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(J, jint red
   if (r != 0)
     return fail(env, r);
   return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+  (void) class;
 }
 
 
@@ -224,6 +221,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(J, jint red_
   if (r != 0)
     return fail(env, r);
   return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+  (void) class;
 }
 
 
@@ -253,6 +251,7 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(J, jint red_
   if (r != 0)
     return fail(env, r);
   return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+  (void) class;
 }
 
 
@@ -270,6 +269,7 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1free(J, jlong address)
   void* this = (void*)(size_t)address;
   libgamma_gamma_ramps8_free(this);
   (void) env;
+  (void) class;
 }
 
 
@@ -286,6 +286,7 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1free(J, jlong address)
   void* this = (void*)(size_t)address;
   libgamma_gamma_ramps16_free(this);
   (void) env;
+  (void) class;
 }
 
 
@@ -302,6 +303,7 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1free(J, jlong address)
   void* this = (void*)(size_t)address;
   libgamma_gamma_ramps32_free(this);
   (void) env;
+  (void) class;
 }
 
 
@@ -318,6 +320,7 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1free(J, jlong address)
   void* this = (void*)(size_t)address;
   libgamma_gamma_ramps64_free(this);
   (void) env;
+  (void) class;
 }
 
 
@@ -334,6 +337,7 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1free(J, jlong address)
   void* this = (void*)(size_t)address;
   libgamma_gamma_rampsf_free(this);
   (void) env;
+  (void) class;
 }
 
 
@@ -350,5 +354,6 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1free(J, jlong address)
   void* this = (void*)(size_t)address;
   libgamma_gamma_rampsd_free(this);
   (void) env;
+  (void) class;
 }
 
