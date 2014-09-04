@@ -18,7 +18,32 @@
 #include "libgamma_Partition.h"
 
 
+/**
+ * Create a partition state.
+ * 
+ * @param   site       The site state for the site that the partition belongs to.
+ * @param   partition  The index of the partition within the site.
+ * @return             Element 0:  The value for {@link #address}.
+ *                     Element 1:  The value for {@link #crtcs_available}
+ *                     Element 2:  Error code, zero on success.
+ */
 jlongArray Java_libgamma_Partition_libgamma_1partition_1create(JNIEnv *, jclass, jlong, jint);
+
+
+/**
+ * Release all resources held by a partition state
+ * and free the partition state pointer.
+ * 
+ * @param  address  The partition state.
+ */
 void Java_libgamma_Partition_libgamma_1partition_1free(JNIEnv *, jclass, jlong);
+
+
+/**
+ * Restore the gamma ramps all CRTC:s within a partition to the system settings.
+ * 
+ * @param   address  The partition state.
+ * @return           Zero on success, and error code on failure.
+ */
 jint Java_libgamma_Partition_libgamma_1partition_1restore(JNIEnv *, jclass, jlong);
 

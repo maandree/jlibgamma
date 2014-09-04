@@ -18,20 +18,167 @@
 #include "libgamma_CRTC.h"
 
 
+/**
+ * Create a CRTC state.
+ * 
+ * @param   partition  The partition state for the partition that the CRTC belongs to.
+ * @param   crtc       The index of the CRTC within the partition.
+ * @return             Element 0:  The value for {@link #address}.
+ *                     Element 1:  Error code, zero on success.
+ */
 jlongArray Java_libgamma_CRTC_libgamma_1crtc_1create(JNIEnv *, jclass, jlong, jint);
+
+
+/**
+ * Release all resources held by a CRTC state
+ * and free the CRTC state pointer.
+ * 
+ * @param  address  The CRTC state.
+ */
 void Java_libgamma_CRTC_libgamma_1crtc_1free(JNIEnv *, jclass, jlong);
+
+
+/**
+ * Restore the gamma ramps for a CRTC to the system settings for that CRTC.
+ * 
+ * @param   address  The CRTC state.
+ * @return           Zero on success, and error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1restore(JNIEnv *, jclass, jlong);
+
+
+/**
+ * Read information about a CRTC.
+ * 
+ * @param   crtc    The state of the CRTC whose information should be read.
+ * @param   fields  OR:ed identifiers for the information about the CRTC that should be read.
+ * @return          Input parameters for the constructor of {@link CRTCInformation}
+ */
 jobjectArray Java_libgamma_CRTC_libgamma_1get_1crtc_1information(JNIEnv *, jclass, jlong, jint);
+
+
+
+/**
+ * Get the current gamma ramps for a CRTC, 8-bit gamma-depth version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to fill with the current values
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps8(JNIEnv *, jclass, jlong, jlong);
+
+
+/**
+ * Set the gamma ramps for a CRTC, 8-bit gamma-depth version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to apply.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps8(JNIEnv *, jclass, jlong, jlong);
+
+
+
+/**
+ * Get the current gamma ramps for a CRTC, 16-bit gamma-depth version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to fill with the current values
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps16(JNIEnv *, jclass, jlong, jlong);
+
+
+/**
+ * Set the gamma ramps for a CRTC, 16-bit gamma-depth version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to apply.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps16(JNIEnv *, jclass, jlong, jlong);
+
+
+
+/**
+ * Get the current gamma ramps for a CRTC, 32-bit gamma-depth version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to fill with the current values.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps32(JNIEnv *, jclass, jlong, jlong);
+
+
+/**
+ * Set the gamma ramps for a CRTC, 32-bit gamma-depth version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to apply.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps32(JNIEnv *, jclass, jlong, jlong);
+
+
+
+/**
+ * Get the current gamma ramps for a CRTC, 64-bit gamma-depth version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to fill with the current values.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps64(JNIEnv *, jclass, jlong, jlong);
+
+
+/**
+ * Set the gamma ramps for a CRTC, 64-bit gamma-depth version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to apply.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps64(JNIEnv *, jclass, jlong, jlong);
+
+
+
+/**
+ * Set the gamma ramps for a CRTC, single precision floating point version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to apply.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsf(JNIEnv *, jclass, jlong, jlong);
+
+
+/**
+ * Get the current gamma ramps for a CRTC, single precision floating point version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to fill with the current values.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsf(JNIEnv *, jclass, jlong, jlong);
+
+
+
+/**
+ * Get the current gamma ramps for a CRTC, double precision floating point version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to fill with the current values.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsd(JNIEnv *, jclass, jlong, jlong);
+
+
+/**
+ * Set the gamma ramps for a CRTC, double precision floating point version.
+ * 
+ * @param   address  The CRTC state.
+ * @param   ramps    The gamma ramps to apply.
+ * @return           Zero on success, an error code on failure.
+ */
 jint Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsd(JNIEnv *, jclass, jlong, jlong);
 

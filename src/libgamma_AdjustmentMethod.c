@@ -18,9 +18,59 @@
 #include "libgamma_AdjustmentMethod.h"
 
 
+/**
+ * List available adjustment methods by their order of preference based on the environment.
+ * 
+ * @param   operation  Allowed values:
+ *                       0: Methods that the environment suggests will work, excluding fake.
+ *                       1: Methods that the environment suggests will work, including fake.
+ *                       2: All real non-fake methods.
+ *                       3: All real methods.
+ *                       4: All methods.
+ *                     Other values invoke undefined behaviour.
+ * @return             List available adjustment methods by their order of preference.
+ */
 jintArray Java_libgamma_AdjustmentMethod_libgamma_1list_1methods(JNIEnv *, jclass, jint);
+
+
+/**
+ * Check whether an adjustment method is available, non-existing (invalid) methods will be
+ * identified as not available under the rationale that the library may be out of date.
+ * 
+ * @param   method  The adjustment method.
+ * @return          Whether the adjustment method is available.
+ */
 jint Java_libgamma_AdjustmentMethod_libgamma_1is_1method_1available(JNIEnv *, jclass, jint);
+
+
+    
+/**
+ * Return the capabilities of an adjustment method.
+ * 
+ * @param   method  The adjustment method (display server and protocol).
+ * @return          Input parameter to the constructor of {@link AdjustmentMethodCapabilities}.
+ */
 jlong Java_libgamma_AdjustmentMethod_libgamma_1method_1capabilities(JNIEnv *, jclass, jint);
+
+
+/**
+ * Return the default site for an adjustment method.
+ * 
+ * @param   method  The adjustment method (display server and protocol.)
+ * @return          The default site, {@code null} if it cannot be determined or
+ *                  if multiple sites are not supported by the adjustment method.
+ */
 jstring Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site(JNIEnv *, jclass, jint);
+
+
+/**
+ * Return the default variable that determines
+ * the default site for an adjustment method.
+ * 
+ * @param   method  The adjustment method (display server and protocol.)
+ * @return          The environ variables that is used to determine the
+ *                  default site. {@code null} if there is none, that is,
+ *                  if the method does not support multiple sites.
+ */
 jstring Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site_1variable(JNIEnv *, jclass, jint);
 

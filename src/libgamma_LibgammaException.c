@@ -18,9 +18,49 @@
 #include "libgamma_LibgammaException.h"
 
 
+/**
+ * Returns the name of the definition associated with
+ * a <tt>libgamma</tt> error code.
+ * 
+ * @param   value  The error code.
+ * @return         The name of the definition associated with the error code,
+ *                 {@code null} if the error code does not exist.
+ */
 jstring Java_libgamma_LibgammaException_name_1of_1error(JNIEnv *, jclass, jint);
+
+
+/**
+ * Return the value of a <tt>libgamma</tt> error definition
+ * refered to by name.
+ * 
+ * @param   name  The name of the definition associated with the error code.
+ * @return        The error code, zero if the name is {@code null}
+ *                or does not refer to a <tt>libgamma</tt> error.
+ */
 jint Java_libgamma_LibgammaException_value_1of_1error(JNIEnv *, jclass, jstring);
+
+
+/**
+ * Acquire the value that should go to {@link #group_gid}.
+ * 
+ * @return  The value that should go to {@link #group_gid}.
+ */
 jint Java_libgamma_LibgammaException_libgamma_1group_1gid(JNIEnv *, jclass);
+
+
+/**
+ * Acquire the value that should go to {@link #group_name}.
+ * 
+ * @return  The value that should go to {@link #group_name}.
+ */
 jstring Java_libgamma_LibgammaException_libgamma_1group_1name(JNIEnv *, jclass);
+
+
+/**
+ * Get a textual description of a system error code.
+ * 
+ * @param   error_code  The error code.
+ * @return              A textual description of the error code.
+ */
 jstring Java_libgamma_LibgammaException_strerror(JNIEnv *, jclass, jint);
 

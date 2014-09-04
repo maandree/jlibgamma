@@ -18,7 +18,32 @@
 #include "libgamma_Site.h"
 
 
+/**
+ * Create a site state.
+ * 
+ * @param   method  The adjustment method (display server and protocol.)
+ * @param   site    The site identifier.
+ * @return          Element 0:  The value for {@link #address}.
+ *                  Element 1:  The value for {@link #partitions_available}
+ *                  Element 2:  Error code, zero on success.
+ */
 jlongArray Java_libgamma_Site_libgamma_1site_1create(JNIEnv *, jclass, jint, jstring);
+
+
+/**
+ * Release all resources held by a site state
+ * and free the site state pointer.
+ * 
+ * @param  address  The site state.
+ */
 void Java_libgamma_Site_libgamma_1site_1free(JNIEnv *, jclass, jlong);
+
+
+/**
+ * Restore the gamma ramps all CRTC:s within a site to the system settings.
+ * 
+ * @param   address  The site state.
+ * @return           Zero on success, and error code on failure.
+ */
 jint Java_libgamma_Site_libgamma_1site_1restore(JNIEnv *, jclass, jlong);
 

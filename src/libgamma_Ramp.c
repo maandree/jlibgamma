@@ -18,16 +18,123 @@
 #include "libgamma_Ramp.h"
 
 
+/**
+ * Read the value of a stop in an 8-bit ramp.
+ * 
+ * @param   address  The address of the ramp.
+ * @param   stop     The index of the stop.
+ * @return           The value of the stop.
+ */
 jshort Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1get(JNIEnv *, jclass, jlong, jint);
+
+
+/**
+ * Read the value of a stop in a 16-bit ramp.
+ * 
+ * @param   address  The address of the ramp.
+ * @param   stop     The index of the stop.
+ * @return           The value of the stop.
+ */
 jint Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1get(JNIEnv *, jclass, jlong, jint);
+
+
+/**
+ * Read the value of a stop in a 32-bit ramp.
+ * 
+ * @param   address  The address of the ramp.
+ * @param   stop     The index of the stop.
+ * @return           The value of the stop.
+ */
 jlong Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1get(JNIEnv *, jclass, jlong, jint);
+
+
+/**
+ * Read the value of a stop in a 64-bit ramp.
+ * 
+ * @param   address  The address of the ramp.
+ * @param   stop     The index of the stop.
+ * @return           The value of the stop.
+ */
 jlong Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1get(JNIEnv *, jclass, jlong, jint);
+
+
+/**
+ * Read the value of a stop in a single precision floating point ramp.
+ * 
+ * @param   address  The address of the ramp.
+ * @param   stop     The index of the stop.
+ * @return           The value of the stop.
+ */
 jfloat Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1get(JNIEnv *, jclass, jlong, jint);
+
+
+/**
+ * Read the value of a stop in a double precision floating point ramp.
+ * 
+ * @param   address  The address of the ramp.
+ * @param   stop     The index of the stop.
+ * @return           The value of the stop.
+ */
 jdouble Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1get(JNIEnv *, jclass, jlong, jint);
+
+
+
+/**
+ * Set the value of a stop in an 8-bit ramp.
+ * 
+ * @param  address  The address of the ramp.
+ * @param  stop     The index of the stop.
+ * @param  value    The value of the stop.
+ */
 void Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1set(JNIEnv *, jclass, jlong, jint, jshort);
+
+
+/**
+ * Set the value of a stop in a 16-bit ramp.
+ * 
+ * @param  address  The address of the ramp.
+ * @param  stop     The index of the stop.
+ * @param  value    The value of the stop.
+ */
 void Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1set(JNIEnv *, jclass, jlong, jint, jint);
+
+
+/**
+ * Set the value of a stop in a 32-bit ramp.
+ * 
+ * @param  address  The address of the ramp.
+ * @param  stop     The index of the stop.
+ * @param  value    The value of the stop.
+ */
 void Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1set(JNIEnv *, jclass, jlong, jint, jlong);
+
+
+/**
+ * Set the value of a stop in a 64-bit ramp.
+ * 
+ * @param  address  The address of the ramp.
+ * @param  stop     The index of the stop.
+ * @param  value    The value of the stop.
+ */
 void Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1set(JNIEnv *, jclass, jlong, jint, jlong);
+
+
+/**
+ * Set the value of a stop in a single precision floating point ramp.
+ * 
+ * @param  address  The address of the ramp.
+ * @param  stop     The index of the stop.
+ * @param  value    The value of the stop.
+ */
 void Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1set(JNIEnv *, jclass, jlong, jint, jfloat);
+
+
+/**
+ * Set the value of a stop in a double precision floating point ramp.
+ * 
+ * @param  address  The address of the ramp.
+ * @param  stop     The index of the stop.
+ * @param  value    The value of the stop.
+ */
 void Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1set(JNIEnv *, jclass, jlong, jint, jdouble);
 
