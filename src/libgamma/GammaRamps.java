@@ -119,7 +119,7 @@ public class GammaRamps<T extends Ramp>
     /**
      * The address of the native object.
      */
-    private final long address;
+    final long address;
     
     
     /**

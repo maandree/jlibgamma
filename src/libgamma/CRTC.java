@@ -94,6 +94,42 @@ public class CRTC
 	return new CRTCInformation(edid, connector_name, gamma, ints);
     }
     
+    /**
+     * Get the current gamma ramps for the CRTC.
+     * 
+     * @param  output  The gamma ramp structure to fill.
+     */
+    public void get_gamma(GammaRamps<Ramp> output) throws LibgammaException
+    {
+	int r = 0;
+	if      (output.depth ==  8)  r = libgamma_crtc_get_gamma_ramps8(this.address, output.address);
+	else if (output.depth == 16)  r = libgamma_crtc_get_gamma_ramps16(this.address, output.address);
+	else if (output.depth == 32)  r = libgamma_crtc_get_gamma_ramps32(this.address, output.address);
+	else if (output.depth == 64)  r = libgamma_crtc_get_gamma_ramps64(this.address, output.address);
+	else if (output.depth == -1)  r = libgamma_crtc_get_gamma_rampsf(this.address, output.address);
+	else if (output.depth == -2)  r = libgamma_crtc_get_gamma_rampsd(this.address, output.address);
+	if (r != 0)
+	    throw new LibgammaException(r);
+    }
+    
+    /**
+     * Set the gamma ramps for the CRTC.
+     * 
+     * @param  values  The gamma ramps to apply.
+     */
+    public void set_gamma(GammaRamps<Ramp> values) throws LibgammaException
+    {
+	int r = 0;
+	if      (values.depth ==  8)  r = libgamma_crtc_set_gamma_ramps8(this.address, values.address);
+	else if (values.depth == 16)  r = libgamma_crtc_set_gamma_ramps16(this.address, values.address);
+	else if (values.depth == 32)  r = libgamma_crtc_set_gamma_ramps32(this.address, values.address);
+	else if (values.depth == 64)  r = libgamma_crtc_set_gamma_ramps64(this.address, values.address);
+	else if (values.depth == -1)  r = libgamma_crtc_set_gamma_rampsf(this.address, values.address);
+	else if (values.depth == -2)  r = libgamma_crtc_set_gamma_rampsd(this.address, values.address);
+	if (r != 0)
+	    throw new LibgammaException(r);
+    }
+    
     
     
     /**
@@ -130,6 +166,120 @@ public class CRTC
      * @return          Input parameters for the constructor of {@link CRTCInformation}
      */
     private static native Object[] libgamma_get_crtc_information(long crtc, int fields);
+    
+    
+    /**
+     * Get the current gamma ramps for a CRTC, 8-bit gamma-depth version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to fill with the current values
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_get_gamma_ramps8(long address, long ramps);
+    
+    /**
+     * Set the gamma ramps for a CRTC, 8-bit gamma-depth version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to apply.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_set_gamma_ramps8(long address, long ramps);
+    
+    
+    /**
+     * Get the current gamma ramps for a CRTC, 16-bit gamma-depth version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to fill with the current values
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_get_gamma_ramps16(long address, long ramps);
+    
+    /**
+     * Set the gamma ramps for a CRTC, 16-bit gamma-depth version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to apply.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_set_gamma_ramps16(long address, long ramps);
+    
+    
+    /**
+     * Get the current gamma ramps for a CRTC, 32-bit gamma-depth version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to fill with the current values.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_get_gamma_ramps32(long address, long ramps);
+    
+    /**
+     * Set the gamma ramps for a CRTC, 32-bit gamma-depth version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to apply.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_set_gamma_ramps32(long address, long ramps);
+    
+    
+    /**
+     * Get the current gamma ramps for a CRTC, 64-bit gamma-depth version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to fill with the current values.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_get_gamma_ramps64(long address, long ramps);
+    
+    /**
+     * Set the gamma ramps for a CRTC, 64-bit gamma-depth version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to apply.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_set_gamma_ramps64(long address, long ramps);
+    
+    
+    /**
+     * Set the gamma ramps for a CRTC, single precision floating point version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to apply.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_set_gamma_rampsf(long address, long ramps);
+    
+    /**
+     * Get the current gamma ramps for a CRTC, single precision floating point version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to fill with the current values.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_get_gamma_rampsf(long address, long ramps);
+    
+    
+    /**
+     * Get the current gamma ramps for a CRTC, double precision floating point version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to fill with the current values.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_get_gamma_rampsd(long address, long ramps);
+    
+    /**
+     * Set the gamma ramps for a CRTC, double precision floating point version.
+     * 
+     * @param   address  The CRTC state.
+     * @param   ramps    The gamma ramps to apply.
+     * @return           Zero on success, an error code on failure.
+     */
+    private static native int libgamma_crtc_set_gamma_rampsd(long address, long ramps);
     
 }
 
