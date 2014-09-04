@@ -20,7 +20,14 @@
 #include <libgamma.h>
 
 
-#define J  JNIEnv* env, jclass class
+#ifndef __GCC__
+# ifndef __attribute__
+#  define __attribute__(X)  /* empty */
+# endif
+#endif
+
+
+#define J  JNIEnv* env, jclass __attribute__((unused)) class
 
 
 

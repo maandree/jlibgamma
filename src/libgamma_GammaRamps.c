@@ -17,10 +17,68 @@
  */
 #include "libgamma_GammaRamps.h"
 
+#include <stdlib.h>
+#include <errno.h>
+
 #include <libgamma.h>
 
 
-#define J  JNIEnv* env, jclass class
+#ifndef __GCC__
+# ifndef __attribute__
+#  define __attribute__(X)  /* empty */
+# endif
+#endif
+
+
+#define J  JNIEnv* env, jclass __attribute__((unused)) class
+
+
+
+/**
+ * Make a failure-return.
+ * 
+ * @param   error_code  The error code returned from the failing function or zero to read `errno`.
+ * @return              The object to return.
+ */
+static jlongArray fail(JNIEnv* env, int error_code)
+{
+  jlongArray rc = (*env)->NewLongArray(env, 5);
+  jlong e, z = 0;
+  if ((error_code == LIBGAMMA_ERRNO_SET) || !error_code)
+    error_code = errno;
+  e = (jlong)error_code;
+  (*env)->SetLongArrayRegion(env, rc, 0, 1, &z);
+  (*env)->SetLongArrayRegion(env, rc, 1, 1, &z);
+  (*env)->SetLongArrayRegion(env, rc, 2, 1, &z);
+  (*env)->SetLongArrayRegion(env, rc, 3, 1, &z);
+  (*env)->SetLongArrayRegion(env, rc, 4, 1, &e);
+  return rc;
+}
+
+
+/**
+ * Make a success-return.
+ * 
+ * @param   ramps  The native object.
+ * @param   red    The red gamma ramp.
+ * @param   green  The green gamma ramp.
+ * @param   blue   The blue gamma ramp.
+ * @return         The object to return.
+ */
+static jlongArray ok(JNIEnv* env, void* ramps, void* red, void* green, void* blue)
+{
+  jlong a = (jlong)(size_t)ramps;
+  jlong b = (jlong)(size_t)red;
+  jlong c = (jlong)(size_t)green;
+  jlong d = (jlong)(size_t)blue, z = 0;
+  jlongArray rc = (*env)->NewLongArray(env, 5);
+  (*env)->SetLongArrayRegion(env, rc, 0, 1, &a);
+  (*env)->SetLongArrayRegion(env, rc, 1, 1, &b);
+  (*env)->SetLongArrayRegion(env, rc, 2, 1, &c);
+  (*env)->SetLongArrayRegion(env, rc, 3, 1, &d);
+  (*env)->SetLongArrayRegion(env, rc, 4, 1, &z);
+  return rc;
+}
 
 
 
@@ -37,7 +95,20 @@
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(J, jint red_size, jint green_size, jint blue_size);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(J, jint red_size, jint green_size, jint blue_size)
+{
+  libgamma_gamma_ramps8_t* ramps = malloc(sizeof(libgamma_gamma_ramps8_t));
+  int r;
+  if (ramps == NULL)
+    return fail(env, 0);
+  ramps->red_size = red_size;
+  ramps->green_size = green_size;
+  ramps->blue_size = blue_size;
+  r = libgamma_gamma_ramps8_initialise(ramps);
+  if (r != 0)
+    return fail(env, r);
+  return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+}
 
 
 /**
@@ -53,7 +124,20 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(J, jint red_
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(J, jint red_size, jint green_size, jint blue_size);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(J, jint red_size, jint green_size, jint blue_size)
+{
+  libgamma_gamma_ramps16_t* ramps = malloc(sizeof(libgamma_gamma_ramps16_t));
+  int r;
+  if (ramps == NULL)
+    return fail(env, 0);
+  ramps->red_size = red_size;
+  ramps->green_size = green_size;
+  ramps->blue_size = blue_size;
+  r = libgamma_gamma_ramps16_initialise(ramps);
+  if (r != 0)
+    return fail(env, r);
+  return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+}
 
 
 /**
@@ -69,7 +153,20 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(J, jint red
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(J, jint red_size, jint green_size, jint blue_size);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(J, jint red_size, jint green_size, jint blue_size)
+{
+  libgamma_gamma_ramps32_t* ramps = malloc(sizeof(libgamma_gamma_ramps32_t));
+  int r;
+  if (ramps == NULL)
+    return fail(env, 0);
+  ramps->red_size = red_size;
+  ramps->green_size = green_size;
+  ramps->blue_size = blue_size;
+  r = libgamma_gamma_ramps32_initialise(ramps);
+  if (r != 0)
+    return fail(env, r);
+  return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+}
 
 
 /**
@@ -85,7 +182,20 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(J, jint red
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(J, jint red_size, jint green_size, jint blue_size);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(J, jint red_size, jint green_size, jint blue_size)
+{
+  libgamma_gamma_ramps64_t* ramps = malloc(sizeof(libgamma_gamma_ramps64_t));
+  int r;
+  if (ramps == NULL)
+    return fail(env, 0);
+  ramps->red_size = red_size;
+  ramps->green_size = green_size;
+  ramps->blue_size = blue_size;
+  r = libgamma_gamma_ramps64_initialise(ramps);
+  if (r != 0)
+    return fail(env, r);
+  return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+}
 
 
 /**
@@ -101,7 +211,20 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(J, jint red
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(J, jint red_size, jint green_size, jint blue_size);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(J, jint red_size, jint green_size, jint blue_size)
+{
+  libgamma_gamma_rampsf_t* ramps = malloc(sizeof(libgamma_gamma_rampsf_t));
+  int r;
+  if (ramps == NULL)
+    return fail(env, 0);
+  ramps->red_size = red_size;
+  ramps->green_size = green_size;
+  ramps->blue_size = blue_size;
+  r = libgamma_gamma_rampsf_initialise(ramps);
+  if (r != 0)
+    return fail(env, r);
+  return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+}
 
 
 /**
@@ -117,7 +240,20 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(J, jint red_
  *                      Element 3:  The address of the blue gamma ramp.
  *                      Element 4:  Zero on success, an error code on error.
  */
-jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(J, jint red_size, jint green_size, jint blue_size);
+jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(J, jint red_size, jint green_size, jint blue_size)
+{
+  libgamma_gamma_rampsd_t* ramps = malloc(sizeof(libgamma_gamma_rampsd_t));
+  int r;
+  if (ramps == NULL)
+    return fail(env, 0);
+  ramps->red_size = red_size;
+  ramps->green_size = green_size;
+  ramps->blue_size = blue_size;
+  r = libgamma_gamma_rampsd_initialise(ramps);
+  if (r != 0)
+    return fail(env, r);
+  return ok(env, ramps, ramps->red, ramps->green, ramps->blue);
+}
 
 
 
@@ -129,7 +265,12 @@ jlongArray Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(J, jint red_
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1free(J, jlong address);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1free(J, jlong address)
+{
+  void* this = (void*)(size_t)address;
+  libgamma_gamma_ramps8_free(this);
+  (void) env;
+}
 
 
 /**
@@ -140,7 +281,12 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1free(J, jlong address);
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1free(J, jlong address);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1free(J, jlong address)
+{
+  void* this = (void*)(size_t)address;
+  libgamma_gamma_ramps16_free(this);
+  (void) env;
+}
 
 
 /**
@@ -151,7 +297,12 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1free(J, jlong address);
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1free(J, jlong address);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1free(J, jlong address)
+{
+  void* this = (void*)(size_t)address;
+  libgamma_gamma_ramps32_free(this);
+  (void) env;
+}
 
 
 /**
@@ -162,7 +313,12 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1free(J, jlong address);
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1free(J, jlong address);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1free(J, jlong address)
+{
+  void* this = (void*)(size_t)address;
+  libgamma_gamma_ramps64_free(this);
+  (void) env;
+}
 
 
 /**
@@ -173,7 +329,12 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1free(J, jlong address);
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1free(J, jlong address);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1free(J, jlong address)
+{
+  void* this = (void*)(size_t)address;
+  libgamma_gamma_rampsf_free(this);
+  (void) env;
+}
 
 
 /**
@@ -184,5 +345,10 @@ void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1free(J, jlong address);
  * 
  * @param  address  The gamma ramps.
  */
-void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1free(J, jlong address);
+void Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1free(J, jlong address)
+{
+  void* this = (void*)(size_t)address;
+  libgamma_gamma_rampsd_free(this);
+  (void) env;
+}
 
