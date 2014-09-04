@@ -81,6 +81,8 @@ C_WARN = -Wall -Wextra -pedantic
 JAVA_WARN = -Xlint:all
 
 
+# Addition flags to use when compiling C code with JNI support
+JNI_FLAGS=-I$(JAVA_HOME)/include
 
 # Flags to use when compiling C code
 CC_FLAGS = -std=$(STD) $(C_OPTIMISE) $(CFLAGS) $(PIC) $(CPPFLAGS) $(WARN)
