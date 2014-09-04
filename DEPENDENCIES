@@ -1,0 +1,22 @@
+RUNTIME DEPENDENCIES:
+
+	java-runtime>=1.5
+	libgamma>=0.3
+	libc
+
+
+BUILD DEPENDENCIES:
+
+	java-environment>=1.5
+	libgamma>=0.3
+	libc
+	c99
+	make
+	coreutils
+
+
+INSTALL DEPENDENCIES:
+
+	make
+	coreutils
+
