@@ -99,9 +99,8 @@ JAVAC_FLAGS = $(JAVACFLAGS) $(JAVA_OPTIMISE) $(JAVA_WARN)
 
 # Java classes
 RAMPS = Ramp16 Ramp32 Ramp64 Ramp8 Rampd Rampf
-JAVA_OBJ = AdjustmentMethodCapabilities AdjustmentMethod ConnectorType \
-           CRTC CRTCInformation GammaRamps Libgamma LibgammaException  \
-           Partition Ramp Site SubpixelOrder $(RAMPS)
+SIMPLE = AdjustmentMethodCapabilities ConnectorType LibgammaException Ramp SubpixelOrder
+JAVA_OBJ = AdjustmentMethod CRTC CRTCInformation GammaRamps Libgamma Partition Site $(RAMPS) $(SIMPLE)
 
 
 .PHONY: all
@@ -115,21 +114,16 @@ obj/libgamma/%.class: src/libgamma/%.java %
 	$(JAVAC) $(JAVAC_FLAGS) -cp src -s src -d obj $<
 
 # Dependencies
-.PHONY: AdjustmentMethodCapabilities AdjustmentMethod ConnectorType CRTCInformation CRTC
-.PHONY: GammaRamps LibgammaException Libgamma Partition Ramp Site SubpixelOrder $(RAMPS)
-AdjustmentMethodCapabilities: $(foreach C,Libgamma,obj/libgamma/$(C).class)
-AdjustmentMethod: $(foreach C,Libgamma AdjustmentMethodCapabilities,obj/libgamma/$(C).class)
-ConnectorType: $(foreach C,Libgamma,obj/libgamma/$(C).class)
-CRTCInformation: $(foreach C,Libgamma SubpixelOrder ConnectorType LibgammaException,obj/libgamma/$(C).class)
-CRTC: $(foreach C,Libgamma Partition CRTCInformation LibgammaException,obj/libgamma/$(C).class)
-GammaRamps: $(foreach C,Ramp Libgamma LibgammaException $(RAMPS),obj/libgamma/$(C).class)
-LibgammaException: $(foreach C,Libgamma,obj/libgamma/$(C).class)
+.PHONY: AdjustmentMethod CRTCInformation CRTC GammaRamps Libgamma Partition Site $(RAMPS) $(SIMPLE)
 Libgamma:
-Partition: $(foreach C,Libgamma Site LibgammaException,obj/libgamma/$(C).class)
-$(RAMPS): $(foreach C,Libgamma Ramp,obj/libgamma/$(C).class)
-Ramp: $(foreach C,Libgamma,obj/libgamma/$(C).class)
-Site: $(foreach C,Libgamma AdjustmentMethod LibgammaException,obj/libgamma/$(C).class)
-SubpixelOrder: $(foreach C,Libgamma,obj/libgamma/$(C).class)
+AdjustmentMethod: $(foreach C, Libgamma AdjustmentMethodCapabilities                  ,obj/libgamma/$(C).class)
+Site:             $(foreach C, Libgamma LibgammaException AdjustmentMethod            ,obj/libgamma/$(C).class)
+Partition:        $(foreach C, Libgamma LibgammaException Site                        ,obj/libgamma/$(C).class)
+CRTC:             $(foreach C, Libgamma LibgammaException Partition CRTCInformation   ,obj/libgamma/$(C).class)
+CRTCInformation:  $(foreach C, Libgamma LibgammaException SubpixelOrder ConnectorType ,obj/libgamma/$(C).class)
+GammaRamps:       $(foreach C, Libgamma LibgammaException Ramp $(RAMPS)               ,obj/libgamma/$(C).class)
+$(RAMPS):         $(foreach C, Libgamma Ramp                                          ,obj/libgamma/$(C).class)
+$(SIMPLE):        $(foreach C, Libgamma                                               ,obj/libgamma/$(C).class)
 
 
 
