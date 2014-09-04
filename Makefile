@@ -8,16 +8,10 @@
 PREFIX ?= /usr
 # The library path excluding prefix
 LIB ?= /lib
-# The library header path excluding prefix.
-INCLUDE ?= /include
 # The resource path excluding prefix
 DATA ?= /share
 # The library path including prefix
 LIBDIR ?= $(PREFIX)$(LIB)
-# The library header path including prefix.
-INCLUDEDIR ?= $(PREFIX)$(INCLUDE)
-# The pkg-config file path including prefix.
-PKGCONFIGDIR ?= $(LIBDIR)/pkgconfig
 # The resource path including prefix
 DATADIR ?= $(PREFIX)$(DATA)
 # The generic documentation path including prefix
@@ -33,9 +27,10 @@ PKGNAME = jlibgamma
 
 # The Java compiler
 JAVAC = javac
-
 # The Java archive creator
 JAR = jar
+# The JNI header generator
+JAVAH = javah
 
 
 # The version of the library.
@@ -57,7 +52,7 @@ endif
 # Platform dependent flags
 ifeq ($(PLATFORM),w32)
 SHARED = -mdll
-LDSO = -Wl,-soname,libgammamm.$(SO).$(LIB_MAJOR)
+LDSO = -Wl,-soname,jlibgamma.$(SO).$(LIB_MAJOR)
 PIC =
 else
 ifeq ($(PLATFORM),osx)
@@ -66,7 +61,7 @@ LDSO =
 PIC = -fPIC
 else
 SHARED = -shared
-LDSO = -Wl,-soname,libgammamm.$(SO).$(LIB_MAJOR)
+LDSO = -Wl,-soname,jlibgamma.$(SO).$(LIB_MAJOR)
 PIC = -fPIC
 endif
 endif
