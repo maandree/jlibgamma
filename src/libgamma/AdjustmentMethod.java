@@ -136,7 +136,7 @@ public enum AdjustmentMethod
      * 
      * @return  The default site for the adjustment method.
      */
-    public String default_site()
+    public String get_default_site()
     {
 	return libgamma_method_default_site(this.value);
     }
@@ -148,7 +148,7 @@ public enum AdjustmentMethod
      * @return  default  variable that determines the default
      *                   site for the adjustment method.
      */
-    public String default_site_variable()
+    public String get_default_site_variable()
     {
 	return libgamma_method_default_site_variable(this.value);
     }
