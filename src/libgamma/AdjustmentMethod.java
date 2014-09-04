@@ -93,6 +93,14 @@ public enum AdjustmentMethod
      */
     public static final int COUNT = MAX + 1;
     
+    /**
+     * Adjustment methods by their numerical values.
+     */
+    public static AdjustmentMethod[] VALUES =
+    {
+	DUMMY, X_RANDR, X_VIDMODE, LINUX_DRM, W32_GDI, QUARTZ_CORE_GRAPHICS
+    };
+    
     
     
     /**
@@ -164,13 +172,7 @@ public enum AdjustmentMethod
 	int[] methods = libgamma_list_methods(operation);
 	AdjustmentMethod[] rc = new AdjustmentMethod[methods.length];
 	for (int i = 0; i < methods.length; i++)
-	{   if      (methods[i] == DUMMY.value)                 rc[i] = DUMMY;
-	    else if (methods[i] == X_RANDR.value)               rc[i] = X_RANDR;
-	    else if (methods[i] == X_VIDMODE.value)             rc[i] = X_VIDMODE;
-	    else if (methods[i] == LINUX_DRM.value)             rc[i] = LINUX_DRM;
-	    else if (methods[i] == W32_GDI.value)               rc[i] = W32_GDI;
-	    else if (methods[i] == QUARTZ_CORE_GRAPHICS.value)  rc[i] = QUARTZ_CORE_GRAPHICS;
-	}
+	    rc[i] = VALUES[methods[i]];
 	return rc;
     }
     
