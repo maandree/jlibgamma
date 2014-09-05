@@ -122,11 +122,11 @@ jar: bin/jlibgamma.jar
 .PHONY: class
 class: $(foreach O,$(JAVA_OBJ),obj/libgamma/$(O).class)
 
-.PHONY: headers
-headers: $(foreach H,$(JAVA_H),obj/libgamma_$(H).h)
+.PHONY: header
+header: $(foreach H,$(JAVA_H),obj/libgamma_$(H).h)
 
 
-bin/jlibgamma.jar: class
+bin/jlibgamma.jar: $(foreach O,$(JAVA_OBJ),obj/libgamma/$(O).class)
 	@mkdir -p bin
 	cd obj; $(JAR) cf jlibgamma.jar $(foreach O,$(JAVA_OBJ),libgamma/$(O).class)
 	mv obj/jlibgamma.jar $@
