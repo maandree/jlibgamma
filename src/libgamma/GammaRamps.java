@@ -147,6 +147,22 @@ public class GammaRamps<T extends Ramp>
     
     
     /**
+     * {@inheritDoc}
+     */
+    public String toString()
+    {
+	String depth_str = Integer.toString(this.depth);
+	if (this.depth == -1)  depth_str = "float";
+	if (this.depth == -1)  depth_str = "double";
+	
+	return "<GammaRamps: depth = " + depth_str + ", " +
+	                      "red = " + this.red.toString() +
+	                    "green = " + this.green.toString() +
+	                     "blue = " + this.blue.toString() + ">";
+    }
+    
+    
+    /**
      * Create and initialise a gamma ramp in the proper way that allows all adjustment
      * methods to read from and write to it without causing segmentation violation.
      * 

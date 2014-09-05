@@ -378,6 +378,16 @@ public class LibgammaException extends Exception
     public final String string;
     
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString()
+    {
+	return this.string;
+    }
+    
+    
     
     /**
      * Returns the name of the definition associated with

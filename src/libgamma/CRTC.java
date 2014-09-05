@@ -141,6 +141,16 @@ public class CRTC
     }
     
     
+    /**
+     * {@inheritDoc}
+     */
+    public String toString()
+    {
+	return "<Site: partition = " + this.partition.toString() + ", " +
+	                   "crtc = " + Integer.toString(this.crtc) + ">";
+    }
+    
+    
     
     /**
      * Create a CRTC state.

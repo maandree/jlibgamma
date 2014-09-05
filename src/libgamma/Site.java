@@ -111,6 +111,17 @@ public class Site
     }
     
     
+    /**
+     * {@inheritDoc}
+     */
+    public String toString()
+    {
+	return "<Site: method = " + this.method.toString() + ", " +
+	                "site = " + (this.site == null ? "<null>" : this.site) + ", " +
+        "partitions_available = " + Integer.toString(this.partitions_available) + ">";
+    }
+    
+    
     
     
     /**

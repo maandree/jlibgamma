@@ -140,5 +140,28 @@ public class AdjustmentMethodCapabilities
      */
     public boolean fake;
     
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String toString()
+    {
+	return "<AdjustmentMethodCapabilities: " + 
+	                         "information = " + Integer.toString(this.crtc_information) + ", " +
+	                  "default_site_known = " + Boolean.toString(this.default_site_known) + ", " +
+	                      "multiple_sites = " + Boolean.toString(this.multiple_sites) + ", " +
+	                 "multiple_partitions = " + Boolean.toString(this.multiple_partitions) + ", " +
+	                      "multiple_crtcs = " + Boolean.toString(this.multiple_crtcs) + ", " +
+	       "partitions_are_graphics_cards = " + Boolean.toString(this.partitions_are_graphics_cards) + ", " +
+	                        "site_restore = " + Boolean.toString(this.site_restore) + ", " +
+	                   "partition_restore = " + Boolean.toString(this.partition_restore) + ", " +
+	                        "crtc_restore = " + Boolean.toString(this.crtc_restore) + ", " +
+	               "identical_gamma_sizes = " + Boolean.toString(this.identical_gamma_sizes) + ", " +
+	                    "fixed_gamma_size = " + Boolean.toString(this.fixed_gamma_size) + ", " +
+	                   "fixed_gamma_depth = " + Boolean.toString(this.fixed_gamma_depth) + ", " +
+	                                "real = " + Boolean.toString(this.real) + ", " +
+	                                "fake = " + Boolean.toString(this.fake) + ">";
+    }
+    
 }
 

@@ -58,6 +58,15 @@ public abstract class Ramp
     
     
     /**
+     * {@inheritDoc}
+     */
+    public String toString()
+    {
+	return "<Ramp: size = " + Integer.toString(size) + ">";
+    }
+    
+    
+    /**
      * Read the value of a stop in an 8-bit ramp.
      * 
      * @param   address  The address of the ramp.

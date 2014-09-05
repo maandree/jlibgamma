@@ -102,6 +102,17 @@ public class Partition
     }
     
     
+    /**
+     * {@inheritDoc}
+     */
+    public String toString()
+    {
+	return "<Partition: site = " + this.site.toString() + ", " +
+	              "partition = " + Integer.toString(this.partition) + ", " +
+	        "crtcs_available = " + Integer.toString(this.crtcs_available) + ">";
+    }
+    
+    
     
     /**
      * Create a partition state.

@@ -203,11 +203,11 @@ public class CRTCInformation
 	this.gamma_size_error     = make_error(ints[12]);
 	this.gamma_depth          = (short)(ints[13]);
 	this.gamma_depth_error    = make_error(ints[14]);
-	this.gamma_support        = ints[15];
+	this.gamma_support        = ints[15] != 0;
 	this.gamma_support_error  = make_error(ints[16]);
 	this.subpixel_order       = SubpixelOrder.VALUES[ints[17]];
 	this.subpixel_order_error = make_error(ints[18]);
-	this.active               = ints[19];
+	this.active               = ints[19] != 0;
 	this.active_error         = make_error(ints[20]);
 	this.connector_name_error = make_error(ints[21]);
 	this.connector_type       = ConnectorType.VALUES[ints[22]];
@@ -371,9 +371,9 @@ public class CRTCInformation
     
     
     /**
-     * Non-zero gamma ramp adjustments are supported.
+     * Whether gamma ramp adjustments are supported.
      */
-    public final int gamma_support;
+    public final boolean gamma_support;
     
     /**
      * Error that occurred when fetching the value for
@@ -399,7 +399,7 @@ public class CRTCInformation
     /**
      * Whether there is a monitors connected to the CRTC.
      */
-    public final int active;
+    public final boolean active;
     
     /**
      * Error that occurred when fetching the value for
@@ -479,6 +479,50 @@ public class CRTCInformation
      * Whether any of the error fields are non-{@code null}.
      */
     public final boolean has_error;
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String toString()
+    {
+	String depth_str = Integer.toString(this.gamma_depth);
+	if (this.gamma_depth == -1)  depth_str = "float";
+	if (this.gamma_depth == -1)  depth_str = "double";
+	
+	return "<CRTCInformation: " + 
+	                    "edid = " + behex(this.edid) + ", " +
+	              "edid_error = " + this.edid_error.toString() + ", " +
+	                "width_mm = " + Integer.toString(this.width_mm) + ", " +
+	          "width_mm_error = " + this.width_mm_error.toString() + ", " +
+	               "height_mm = " + Integer.toString(this.height_mm) + ", " +
+	         "height_mm_error = " + this.height_mm_error.toString() + ", " +
+	           "width_mm_edid = " + Integer.toString(this.width_mm_edid) + ", " +
+	     "width_mm_edid_error = " + this.width_mm_edid_error.toString() + ", " +
+	          "height_mm_edid = " + Integer.toString(this.height_mm_edid) + ", " +
+	    "height_mm_edid_error = " + this.height_mm_edid_error.toString() + ", " +
+	          "red_gamma_size = " + Integer.toString(this.red_gamma_size) + ", " +
+	        "green_gamma_size = " + Integer.toString(this.green_gamma_size) + ", " +
+	         "blue_gamma_size = " + Integer.toString(this.blue_gamma_size) + ", " +
+	        "gamma_size_error = " + this.gamma_size_error.toString() + ", " +
+	             "gamma_depth = " + depth_str + ", " +
+	       "gamma_depth_error = " + this.gamma_depth_error.toString() + ", " +
+	           "gamma_support = " + Boolean.toString(this.gamma_support) + ", " +
+	     "gamma_support_error = " + this.gamma_support_error.toString() + ", " +
+	          "subpixel_order = " + this.subpixel_order.toString() + ", " +
+	    "subpixel_order_error = " + this.subpixel_order_error.toString() + ", " +
+	                  "active = " + Boolean.toString(this.active) + ", " +
+	            "active_error = " + this.active_error.toString() + ", " +
+	          "connector_name = " + this.connector_name + ", " +
+	    "connector_name_error = " + this.connector_name_error.toString() + ", " +
+	          "connector_type = " + this.connector_type.toString() + ", " +
+	    "connector_type_error = " + this.connector_type_error.toString() + ", " +
+	               "gamma_red = " + Float.toString(this.gamma_red) + ", " +
+	             "gamma_green = " + Float.toString(this.gamma_green) + ", " +
+	              "gamma_blue = " + Float.toString(this.gamma_blue) + ", " +
+	             "gamma_error = " + this.gamma_error.toString() + ", " +
+	               "has_error = " + Boolean.toString(this.has_error) + ">";
+    }
     
     
     
