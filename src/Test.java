@@ -15,36 +15,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-package libgamma;
+import libgamma.*;
 
 
 /**
- * Library initialisation class.
+ * jlibgamma test class.
  */
-class Libgamma
+public class Test
 {
     /**
-     * Initialise the library.
+     * Main test function.
+     * 
+     * @param  args  Command line arguments, excluding $0.
      */
-    static void initialise()
+    public static void main(String[] args)
     {
-	if (Libgamma.initialised)
-	    return;
-	Libgamma.initialised = true;
-	
-	try
-	{   System.loadLibrary("gamma-java");
-	}
-	catch (Throwable err)
-	{   throw new Error(err);
-	}
+	System.out.println(AdjustmentMethod.X_RANDR.is_available());
     }
-    
-    
-    /**
-     * Whether {@link #initialise} has been invoked.
-     */
-    private static boolean initialised = false;
     
 }
 

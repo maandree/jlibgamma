@@ -105,16 +105,19 @@ JAVA_OBJ = AdjustmentMethod CRTC CRTCInformation GammaRamps Libgamma Partition S
 # Java classes with native functions
 JAVA_H = AdjustmentMethod CRTC GammaRamps LibgammaException Partition Ramp Site
 
+# .so files to create
+SO_FILES = bin/libgamma-java.$(SO).$(LIB_VERSION) bin/libgamma-java.$(SO).$(LIB_MAJOR) bin/libgamma-java.$(SO)
+
 
 
 .PHONY: all
-all: lib
+all: lib test
 
 .PHONY: lib
 lib: jar so
 
 .PHONY: so
-so: bin/libgamma-java.$(SO).$(LIB_VERSION) bin/libgamma-java.$(SO).$(LIB_MAJOR) bin/libgamma-java.$(SO)
+so: $(SO_FILES)
 
 .PHONY: jar
 jar: bin/jlibgamma.jar
@@ -124,6 +127,9 @@ class: $(foreach O,$(JAVA_OBJ),obj/libgamma/$(O).class)
 
 .PHONY: header
 header: $(foreach H,$(JAVA_H),obj/libgamma_$(H).h)
+
+.PHONY: test
+test: bin/Test.class
 
 
 bin/jlibgamma.jar: $(foreach O,$(JAVA_OBJ),obj/libgamma/$(O).class)
@@ -154,8 +160,17 @@ bin/libgamma-java.$(SO):
 	@mkdir -p bin
 	ln -sf libgamma-java.$(SO).$(LIB_VERSION) $@
 
+bin/Test.class: src/Test.java bin/jlibgamma.jar $(SO_FILES)
+	@mkdir -p bin
+	$(JAVAC) $(JAVAC_FLAGS) -cp 'src:bin/jlibgamma.jar' -s src -d bin $<
+
 
 .PHONY: clean
 clean:
 	-rm -r obj bin
+
+
+.PHONY: run-test
+run-test: bin/Test.class
+	@env LD_LIBRARY_PATH=bin java -cp bin:bin/jlibgamma.jar Test
 
