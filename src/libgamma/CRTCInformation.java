@@ -481,6 +481,22 @@ public class CRTCInformation
     public final boolean has_error;
     
     
+    
+    /**
+     * Helper function for {@link #toString}.
+     * 
+     * @param   error  An error, may be {@code null}.
+     * @return         A textual representation of <tt>error</tt>
+     */
+    private static String errorToString(LibgammaException error)
+    {
+	if (error == null)
+	    return "<null>";
+	else
+	    return error.toString();
+    }
+    
+    
     /**
      * {@inheritDoc}
      */
@@ -492,35 +508,35 @@ public class CRTCInformation
 	
 	return "<CRTCInformation: " + 
 	                    "edid = " + behex(this.edid) + ", " +
-	              "edid_error = " + this.edid_error.toString() + ", " +
+	              "edid_error = " + errorToString(this.edid_error) + ", " +
 	                "width_mm = " + Integer.toString(this.width_mm) + ", " +
-	          "width_mm_error = " + this.width_mm_error.toString() + ", " +
+	          "width_mm_error = " + errorToString(this.width_mm_error) + ", " +
 	               "height_mm = " + Integer.toString(this.height_mm) + ", " +
-	         "height_mm_error = " + this.height_mm_error.toString() + ", " +
+	         "height_mm_error = " + errorToString(this.height_mm_error) + ", " +
 	           "width_mm_edid = " + Integer.toString(this.width_mm_edid) + ", " +
-	     "width_mm_edid_error = " + this.width_mm_edid_error.toString() + ", " +
+	     "width_mm_edid_error = " + errorToString(this.width_mm_edid_error) + ", " +
 	          "height_mm_edid = " + Integer.toString(this.height_mm_edid) + ", " +
-	    "height_mm_edid_error = " + this.height_mm_edid_error.toString() + ", " +
+	    "height_mm_edid_error = " + errorToString(this.height_mm_edid_error) + ", " +
 	          "red_gamma_size = " + Integer.toString(this.red_gamma_size) + ", " +
 	        "green_gamma_size = " + Integer.toString(this.green_gamma_size) + ", " +
 	         "blue_gamma_size = " + Integer.toString(this.blue_gamma_size) + ", " +
-	        "gamma_size_error = " + this.gamma_size_error.toString() + ", " +
+	        "gamma_size_error = " + errorToString(this.gamma_size_error) + ", " +
 	             "gamma_depth = " + depth_str + ", " +
-	       "gamma_depth_error = " + this.gamma_depth_error.toString() + ", " +
+	       "gamma_depth_error = " + errorToString(this.gamma_depth_error) + ", " +
 	           "gamma_support = " + Boolean.toString(this.gamma_support) + ", " +
-	     "gamma_support_error = " + this.gamma_support_error.toString() + ", " +
+	     "gamma_support_error = " + errorToString(this.gamma_support_error) + ", " +
 	          "subpixel_order = " + this.subpixel_order.toString() + ", " +
-	    "subpixel_order_error = " + this.subpixel_order_error.toString() + ", " +
+	    "subpixel_order_error = " + errorToString(this.subpixel_order_error) + ", " +
 	                  "active = " + Boolean.toString(this.active) + ", " +
-	            "active_error = " + this.active_error.toString() + ", " +
-	          "connector_name = " + this.connector_name + ", " +
-	    "connector_name_error = " + this.connector_name_error.toString() + ", " +
+	            "active_error = " + errorToString(this.active_error) + ", " +
+	          "connector_name = " + (this.connector_name == null ? "<null>" : this.connector_name) + ", " +
+	    "connector_name_error = " + errorToString(this.connector_name_error) + ", " +
 	          "connector_type = " + this.connector_type.toString() + ", " +
-	    "connector_type_error = " + this.connector_type_error.toString() + ", " +
+	    "connector_type_error = " + errorToString(this.connector_type_error) + ", " +
 	               "gamma_red = " + Float.toString(this.gamma_red) + ", " +
 	             "gamma_green = " + Float.toString(this.gamma_green) + ", " +
 	              "gamma_blue = " + Float.toString(this.gamma_blue) + ", " +
-	             "gamma_error = " + this.gamma_error.toString() + ", " +
+	             "gamma_error = " + errorToString(this.gamma_error) + ", " +
 	               "has_error = " + Boolean.toString(this.has_error) + ">";
     }
     
