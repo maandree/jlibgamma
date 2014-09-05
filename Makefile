@@ -14,6 +14,8 @@ DATA ?= /share
 LIBDIR ?= $(PREFIX)$(LIB)
 # The resource path including prefix
 DATADIR ?= $(PREFIX)$(DATA)
+# Java module path including prefix
+JAVADIR ?= $(DATADIR)/java
 # The generic documentation path including prefix
 DOCDIR ?= $(DATADIR)/doc
 # The info manual documentation path including prefix
@@ -165,9 +167,61 @@ bin/Test.class: src/Test.java bin/jlibgamma.jar $(SO_FILES)
 	$(JAVAC) $(JAVAC_FLAGS) -cp 'src:bin/jlibgamma.jar' -s src -d bin $<
 
 
+
+.PHONY: install
+install: install-base
+
+.PHONY: install
+install-all: install-base
+
+.PHONY: install-base
+install-base: install-lib install-jar install-copyright
+
+
+.PHONY: install-lib
+install-lib:
+	install -dm755 -- "$(DESTDIR)$(LIBDIR)"
+	install -m755 bin/libgamma-java.$(SO).$(LIB_VERSION) -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO).$(LIB_VERSION)"
+	ln -sf libgamma-java.$(SO).$(LIB_VERSION) -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO).$(LIB_MAJOR)"
+	ln -sf libgamma-java.$(SO).$(LIB_VERSION) -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO)"
+
+.PHONY: install-jar
+install-jar:
+	install -dm755 -- "$(DESTDIR)$(JAVADIR)"
+	install -m644 bin/jlibgamma.jar -- "$(DESTDIR)$(JAVADIR)/jlibgamma.jar"
+
+
+.PHONY: install-copyright
+install-copyright: install-copying install-license
+
+.PHONY: install-copying
+install-copying:
+	install -dm755 -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
+	install -m644 COPYING -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)/COPYING"
+
+.PHONY: install-license
+install-license:
+	install -dm755 -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
+	install -m644 LICENSE -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)/LICENSE"
+
+
+
+.PHONY: uninstall
+uninstall:
+	-rm -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)/LICENSE"
+	-rm -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)/COPYING"
+	-rmdir -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
+	-rm -- "$(DESTDIR)$(JAVADIR)/jlibgamma.jar"
+	-rm -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO).$(LIB_VERSION)"
+	-rm -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO).$(LIB_MAJRO)"
+	-rm -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO)"
+
+
+
 .PHONY: clean
 clean:
 	-rm -r obj bin
+
 
 
 .PHONY: run-test
