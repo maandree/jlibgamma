@@ -213,7 +213,7 @@ uninstall:
 	-rmdir -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
 	-rm -- "$(DESTDIR)$(JAVADIR)/jlibgamma.jar"
 	-rm -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO).$(LIB_VERSION)"
-	-rm -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO).$(LIB_MAJRO)"
+	-rm -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO).$(LIB_MAJOR)"
 	-rm -- "$(DESTDIR)$(LIBDIR)/libgamma-java.$(SO)"
 
 
