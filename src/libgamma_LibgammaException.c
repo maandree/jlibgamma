@@ -17,6 +17,9 @@
  */
 #include "libgamma_LibgammaException.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 #include <libgamma.h>
 
 
@@ -32,7 +35,25 @@
  * @return         The name of the definition associated with the error code,
  *                 {@code null} if the error code does not exist.
  */
-jstring Java_libgamma_LibgammaException_name_1of_1error(J, jint value);
+jstring Java_libgamma_LibgammaException_name_1of_1error(J, jint value)
+{
+  /* It is really unlikely that `malloc` returns `NULL` here
+   * and error handing makes this unnecessarily comples,
+   * therefore we will simply skip it. */
+  
+  const char* do_not_free_this = libgamma_name_of_error(value);
+  char* this_will_be_freed;
+  size_t n;
+  if (do_not_free_this == NULL)
+    return NULL;
+  
+  n = strlen(do_not_free_this) + 1;
+  this_will_be_freed = malloc(n * sizeof(char));
+  memcpy(this_will_be_freed, do_not_free_this, n * sizeof(char));
+  
+  return (*env)->NewStringUTF(env, this_will_be_freed);
+  (void) class;
+}
 
 
 /**
@@ -43,7 +64,18 @@ jstring Java_libgamma_LibgammaException_name_1of_1error(J, jint value);
  * @return        The error code, zero if the name is {@code null}
  *                or does not refer to a <tt>libgamma</tt> error.
  */
-jint Java_libgamma_LibgammaException_value_1of_1error(J, jstring name);
+jint Java_libgamma_LibgammaException_value_1of_1error(J, jstring name)
+{
+  const char* name_chars;
+  int rc;
+  if (name == NULL)
+    return 0;
+  name_chars = (*env)->GetStringUTFChars(env, name, NULL);
+  rc = libgamma_value_of_error(name_chars);
+  (*env)->ReleaseStringUTFChars(env, name, name_chars);
+  return rc;
+  (void) class;
+}
 
 
 /**
@@ -51,7 +83,12 @@ jint Java_libgamma_LibgammaException_value_1of_1error(J, jstring name);
  * 
  * @return  The value that should go to {@link #group_gid}.
  */
-jint Java_libgamma_LibgammaException_libgamma_1group_1gid(J);
+jint Java_libgamma_LibgammaException_libgamma_1group_1gid(J)
+{
+  return libgamma_group_gid;
+  (void) env;
+  (void) class;
+}
 
 
 /**
@@ -59,7 +96,25 @@ jint Java_libgamma_LibgammaException_libgamma_1group_1gid(J);
  * 
  * @return  The value that should go to {@link #group_name}.
  */
-jstring Java_libgamma_LibgammaException_libgamma_1group_1name(J);
+jstring Java_libgamma_LibgammaException_libgamma_1group_1name(J)
+{
+  /* It is really unlikely that `malloc` returns `NULL` here
+   * and error handing makes this unnecessarily comples,
+   * therefore we will simply skip it. */
+  
+  const char* do_not_free_this = libgamma_group_name;
+  char* this_will_be_freed;
+  size_t n;
+  if (do_not_free_this == NULL)
+    return NULL;
+  
+  n = strlen(do_not_free_this) + 1;
+  this_will_be_freed = malloc(n * sizeof(char));
+  memcpy(this_will_be_freed, do_not_free_this, n * sizeof(char));
+  
+  return (*env)->NewStringUTF(env, this_will_be_freed);
+  (void) class;
+}
 
 
 /**
@@ -68,5 +123,23 @@ jstring Java_libgamma_LibgammaException_libgamma_1group_1name(J);
  * @param   error_code  The error code.
  * @return              A textual description of the error code.
  */
-jstring Java_libgamma_LibgammaException_strerror(J, jint error_code);
+jstring Java_libgamma_LibgammaException_strerror(J, jint error_code)
+{
+  /* It is really unlikely that `malloc` returns `NULL` here
+   * and error handing makes this unnecessarily comples,
+   * therefore we will simply skip it. */
+  
+  const char* do_not_free_this = strerror(error_code);
+  char* this_will_be_freed;
+  size_t n;
+  if (do_not_free_this == NULL)
+    return NULL;
+  
+  n = strlen(do_not_free_this) + 1;
+  this_will_be_freed = malloc(n * sizeof(char));
+  memcpy(this_will_be_freed, do_not_free_this, n * sizeof(char));
+  
+  return (*env)->NewStringUTF(env, this_will_be_freed);
+  (void) class;
+}
 
