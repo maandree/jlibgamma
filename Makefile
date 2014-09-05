@@ -150,7 +150,7 @@ obj/libgamma_%.o: src/libgamma_%.c obj/libgamma_%.h
 
 bin/libgamma-java.$(SO).$(LIB_VERSION): $(foreach O,$(JAVA_H),obj/libgamma_$(O).o)
 	@mkdir -p bin
-	$(CC) $(LD_FLAGS) $(LD_JNI_FLAGS) $(SHARED) $(LDSO) -o $@ $<
+	$(CC) $(LD_FLAGS) $(LD_JNI_FLAGS) $(SHARED) $(LDSO) -o $@ $^
 
 bin/libgamma-java.$(SO).$(LIB_MAJOR):
 	@mkdir -p bin
