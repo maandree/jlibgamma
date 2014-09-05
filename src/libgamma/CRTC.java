@@ -109,7 +109,7 @@ public class CRTC
      * 
      * @param  output  The gamma ramp structure to fill.
      */
-    public void get_gamma(GammaRamps<Ramp> output) throws LibgammaException
+    public <T extends Ramp> void get_gamma(GammaRamps<T> output) throws LibgammaException
     {
 	int r = 0;
 	if      (output.depth ==  8)  r = libgamma_crtc_get_gamma_ramps8(this.address, output.address);
@@ -127,7 +127,7 @@ public class CRTC
      * 
      * @param  values  The gamma ramps to apply.
      */
-    public void set_gamma(GammaRamps<Ramp> values) throws LibgammaException
+    public <T extends Ramp> void set_gamma(GammaRamps<T> values) throws LibgammaException
     {
 	int r = 0;
 	if      (values.depth ==  8)  r = libgamma_crtc_set_gamma_ramps8(this.address, values.address);

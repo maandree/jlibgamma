@@ -54,6 +54,21 @@ public class GammaRamps<T extends Ramp>
      *                     -1 for single precision floating point, and -2 for
      *                     double precision floating point.
      */
+    public GammaRamps(int red_size, int green_size, int blue_size, int depth) throws LibgammaException
+    {
+	this(red_size, green_size, blue_size, (short)depth);
+    }
+    
+    /**
+     * Constructor.
+     * 
+     * @param  red_size    The size of the encoding axis of the red gamma ramp.
+     * @param  green_size  The size of the encoding axis of the green gamma ramp.
+     * @param  blue_size   The size of the encoding axis of the blue gamma ramp.
+     * @param  depth       The bit-depth of the value axes of gamma ramps,
+     *                     -1 for single precision floating point, and -2 for
+     *                     double precision floating point.
+     */
     @SuppressWarnings("unchecked")
     public GammaRamps(int red_size, int green_size, int blue_size, short depth) throws LibgammaException
     {
