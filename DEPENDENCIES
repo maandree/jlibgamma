@@ -1,6 +1,6 @@
 RUNTIME DEPENDENCIES:
 
-	java-runtime>=1.5
+	java-runtime-headless>=1.5
 	libgamma>=0.3
 	libc
 
