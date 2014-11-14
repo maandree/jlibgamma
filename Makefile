@@ -76,24 +76,29 @@ C_OPTIMISE ?= -Og -g
 JAVA_OPTIMISE ?= -O
 
 # Warning flags for C code, set to empty if you are not using GCC
-C_WARN = -Wall -Wextra -pedantic
-## TODO add more warnings
+C_WARN = -Wall -Wextra -pedantic -Wdouble-promotion -Wformat=2 -Winit-self -Wmissing-include-dirs  \
+         -Wtrampolines -Wfloat-equal -Wshadow -Wmissing-prototypes -Wmissing-declarations          \
+         -Wredundant-decls -Wnested-externs -Winline -Wno-variadic-macros -Wswitch-default         \
+         -Wsync-nand -Wunsafe-loop-optimizations -Wcast-align -Wstrict-overflow                    \
+         -Wdeclaration-after-statement -Wundef -Wbad-function-cast -Wcast-qual -Wwrite-strings     \
+         -Wlogical-op -Waggregate-return -Wstrict-prototypes -Wold-style-definition -Wpacked       \
+         -Wvector-operation-performance -Wunsuffixed-float-constants -Wnormalized=nfkc
 
-# Warning flags for Java code.
+# Warning flags for Java code
 JAVA_WARN = -Xlint:all
 
 
 # Addition flags to use when compiling C code with JNI support
-CC_JNI_FLAGS = -I$(JAVA_HOME)/include
+CC_JNI_FLAGS = -I"$(JAVA_HOME)/include" -I"$(shell echo "$(JAVA_HOME)"/include/*/)"
 
-# Addition flags to use when linking natvie objets with JNI support
+# Addition flags to use when linking native objets with JNI support
 LD_JNI_FLAGS =
 
 # Flags to use when compiling C code
-CC_FLAGS = -std=$(STD) $(C_OPTIMISE) $(CFLAGS) $(PIC) $(CPPFLAGS) $(C_WARN)
+CC_FLAGS = -std=$(STD) $(C_OPTIMISE) $(PIC) $(C_WARN)
 
 # Flags to use when linking native objects
-LD_FLAGS = -lgamma -std=$(STD) $(C_OPTIMISE) $(LDFLAGS) $(C_WARN)
+LD_FLAGS = -lgamma -std=$(STD) $(C_OPTIMISE) $(C_WARN)
 
 # Flags to use when compiling Java code
 JAVAC_FLAGS = $(JAVACFLAGS) $(JAVA_OPTIMISE) $(JAVA_WARN)
@@ -148,11 +153,11 @@ obj/libgamma_%.h: obj/libgamma/%.class
 	  $$(echo "$<" | sed -e 's:^obj/::' -e 's:.class$$::' | sed -e 's:/:.:g')
 
 obj/libgamma_%.o: src/libgamma_%.c obj/libgamma_%.h
-	$(CC) $(CC_FLAGS) $(CC_JNI_FLAGS) -iquote"obj" -c -o $@ $<
+	$(CC) $(CC_JNI_FLAGS) $(CC_FLAGS) -iquote"obj" -c -o $@ $< $(CFLAGS) $(CPPFLAGS)
 
 bin/libgamma-java.$(SO).$(LIB_VERSION): $(foreach O,$(JAVA_H),obj/libgamma_$(O).o)
 	@mkdir -p bin
-	$(CC) $(LD_FLAGS) $(LD_JNI_FLAGS) $(SHARED) $(LDSO) -o $@ $^
+	$(CC) $(LD_JNI_FLAGS) $(LD_FLAGS) $(SHARED) $(LDSO) -o $@ $^ $(LDFLAGS)
 
 bin/libgamma-java.$(SO).$(LIB_MAJOR):
 	@mkdir -p bin
