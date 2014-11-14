@@ -15,12 +15,12 @@ sha256sums=(b2b4fff21270162a7faa3cc95f511261acf128a28e35f24c6c24a1b8492bb175)
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
-  make PREFIX=/usr
+  make PREFIX=/usr JAVA_HOME=/usr/lib/jvm/default
 }
 
 
 package() {
   cd "$srcdir/$pkgname-$pkgver"
-  make PREFIX=/usr install DESTDIR="$pkgdir"
+  make PREFIX=/usr JAVA_HOME=/usr/lib/jvm/default install DESTDIR="$pkgdir"
 }
 
