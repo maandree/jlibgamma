@@ -34,11 +34,11 @@ Java_libgamma_AdjustmentMethod_libgamma_1list_1methods(JNIEnv *env, jclass class
 	if (n > LIBGAMMA_METHOD_COUNT)
 		abort(); /* Prevented by the #if above and package maintenance */
 
-	rc = (*env)->NewIntArray(env, n);
+	rc = (*env)->NewIntArray(env, (jsize)n);
 
 	/* Remember, jint is 32 bits, int is 16+ bits. */
 	for (i = 0; i < n; i++)
-		(*env)->SetIntArrayRegion(env, rc, i, 1, methods + i);
+		(*env)->SetIntArrayRegion(env, rc, (jsize)i, 1, methods + i);
 
 	return rc;
 	(void) class;

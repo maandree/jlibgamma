@@ -65,7 +65,7 @@ Java_libgamma_LibgammaException_value_1of_1error(JNIEnv *env, jclass class, jstr
 jint
 Java_libgamma_LibgammaException_libgamma_1group_1gid(JNIEnv *env, jclass class)
 {
-	return libgamma_group_gid;
+	return (jint)libgamma_group_gid;
 	(void) env;
 	(void) class;
 }

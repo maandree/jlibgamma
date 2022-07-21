@@ -57,7 +57,7 @@ Java_libgamma_CRTC_libgamma_1crtc_1create(JNIEnv *env, jclass class, jlong parti
 	int r;
 	if (!state)
 		return fail(env, 0);
-	r = libgamma_crtc_initialise(state, super, crtc);
+	r = libgamma_crtc_initialise(state, super, (size_t)crtc);
 	if (r)
 		return fail(env, r);
 	return ok(env, state);
@@ -123,8 +123,8 @@ Java_libgamma_CRTC_libgamma_1get_1crtc_1information(JNIEnv *env, jclass class, j
 	libgamma_get_crtc_information(&info, this, fields);
 
 	if (info.edid) {
-		edid = (*env)->NewByteArray(env, info.edid_length);
-		(*env)->SetByteArrayRegion(env, edid, 0, info.edid_length, (const jbyte*)(info.edid));
+		edid = (*env)->NewByteArray(env, (jsize)info.edid_length);
+		(*env)->SetByteArrayRegion(env, edid, 0, (jsize)info.edid_length, (const jbyte*)(info.edid));
 		free(info.edid);
 	}
 

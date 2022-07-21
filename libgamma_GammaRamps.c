@@ -73,9 +73,9 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(JNIEnv *env, jclass cla
 	int r;
 	if (!ramps)
 		return fail(env, 0);
-	ramps->red_size = red_size;
-	ramps->green_size = green_size;
-	ramps->blue_size = blue_size;
+	ramps->red_size = (size_t)red_size;
+	ramps->green_size = (size_t)green_size;
+	ramps->blue_size = (size_t)blue_size;
 	r = libgamma_gamma_ramps8_initialise(ramps);
 	if (r)
 		return fail(env, r);
@@ -103,9 +103,9 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(JNIEnv *env, jclass cl
 	int r;
 	if (!ramps)
 		return fail(env, 0);
-	ramps->red_size = red_size;
-	ramps->green_size = green_size;
-	ramps->blue_size = blue_size;
+	ramps->red_size = (size_t)red_size;
+	ramps->green_size = (size_t)green_size;
+	ramps->blue_size = (size_t)blue_size;
 	r = libgamma_gamma_ramps16_initialise(ramps);
 	if (r)
 		return fail(env, r);
@@ -133,9 +133,9 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(JNIEnv *env, jclass cl
 	int r;
 	if (!ramps)
 		return fail(env, 0);
-	ramps->red_size = red_size;
-	ramps->green_size = green_size;
-	ramps->blue_size = blue_size;
+	ramps->red_size = (size_t)red_size;
+	ramps->green_size = (size_t)green_size;
+	ramps->blue_size = (size_t)blue_size;
 	r = libgamma_gamma_ramps32_initialise(ramps);
 	if (r)
 		return fail(env, r);
@@ -163,9 +163,9 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(JNIEnv *env, jclass cl
 	int r;
 	if (!ramps)
 		return fail(env, 0);
-	ramps->red_size = red_size;
-	ramps->green_size = green_size;
-	ramps->blue_size = blue_size;
+	ramps->red_size = (size_t)red_size;
+	ramps->green_size = (size_t)green_size;
+	ramps->blue_size = (size_t)blue_size;
 	r = libgamma_gamma_ramps64_initialise(ramps);
 	if (r)
 		return fail(env, r);
@@ -193,9 +193,9 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(JNIEnv *env, jclass cla
 	int r;
 	if (!ramps)
 		return fail(env, 0);
-	ramps->red_size = red_size;
-	ramps->green_size = green_size;
-	ramps->blue_size = blue_size;
+	ramps->red_size = (size_t)red_size;
+	ramps->green_size = (size_t)green_size;
+	ramps->blue_size = (size_t)blue_size;
 	r = libgamma_gamma_rampsf_initialise(ramps);
 	if (r)
 		return fail(env, r);
@@ -223,9 +223,9 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(JNIEnv *env, jclass cla
 	int r;
 	if (!ramps)
 		return fail(env, 0);
-	ramps->red_size = red_size;
-	ramps->green_size = green_size;
-	ramps->blue_size = blue_size;
+	ramps->red_size = (size_t)red_size;
+	ramps->green_size = (size_t)green_size;
+	ramps->blue_size = (size_t)blue_size;
 	r = libgamma_gamma_rampsd_initialise(ramps);
 	if (r)
 		return fail(env, r);

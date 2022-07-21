@@ -62,7 +62,7 @@ Java_libgamma_Partition_libgamma_1partition_1create(JNIEnv *env, jclass class, j
 	int r;
 	if (state == NULL)
 		return fail(env, 0);
-	r = libgamma_partition_initialise(state, super, partition);
+	r = libgamma_partition_initialise(state, super, (size_t)partition);
 	if (r)
 		return fail(env, r);
 	return ok(env, state, state->crtcs_available);
