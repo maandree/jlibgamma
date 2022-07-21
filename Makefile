@@ -90,7 +90,7 @@ run-test: Test.class ./libgamma.jar ./libgamma-java.so
 	@env LD_LIBRARY_PATH=. java -cp .:./libgamma.jar Test
 
 clean:
-	-rm -f -- libgamma_*.h *.o *.class *.so *.so.* *.dll *.dylib *.$(LIBEXT)
+	-rm -f -- libgamma_*.h *.o *.class *.so *.so.* *.dll *.dylib *.$(LIBEXT) *.su *.jar
 
 .SUFFIXES:
 .SUFFIXES: .o .c
