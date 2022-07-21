@@ -1,9 +1,5 @@
 _/
-bin/
-obj/
-\#*\#
-.*
-!.git*
+*\#*
 *~
 *.bak
 *.swp
@@ -13,6 +9,9 @@ obj/
 *.out
 *.o
 *.so
+*.so.*
+*.dll
+*.dylib
 *.class
 *.jar
-
+libgamma_*.h
