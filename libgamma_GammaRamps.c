@@ -40,10 +40,10 @@ fail(JNIEnv *env, int error_code)
 static jlongArray
 ok(JNIEnv *env, void *ramps, void *red, void *green, void *blue)
 {
-	jlong a = (jlong)(size_t)ramps;
-	jlong b = (jlong)(size_t)red;
-	jlong c = (jlong)(size_t)green;
-	jlong d = (jlong)(size_t)blue, z = 0;
+	jlong a = (jlong)(uintptr_t)ramps;
+	jlong b = (jlong)(uintptr_t)red;
+	jlong c = (jlong)(uintptr_t)green;
+	jlong d = (jlong)(uintptr_t)blue, z = 0;
 	jlongArray rc = (*env)->NewLongArray(env, 5);
 	(*env)->SetLongArrayRegion(env, rc, 0, 1, &a);
 	(*env)->SetLongArrayRegion(env, rc, 1, 1, &b);
@@ -69,7 +69,7 @@ ok(JNIEnv *env, void *ramps, void *red, void *green, void *blue)
 jlongArray
 Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(JNIEnv *env, jclass class, jint red_size, jint green_size, jint blue_size)
 {
-	libgamma_gamma_ramps8_t *ramps = malloc(sizeof(libgamma_gamma_ramps8_t));
+	struct libgamma_gamma_ramps8 *ramps = malloc(sizeof(*ramps));
 	int r;
 	if (!ramps)
 		return fail(env, 0);
@@ -99,7 +99,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1create(JNIEnv *env, jclass cla
 jlongArray
 Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(JNIEnv *env, jclass class, jint red_size, jint green_size, jint blue_size)
 {
-	libgamma_gamma_ramps16_t *ramps = malloc(sizeof(libgamma_gamma_ramps16_t));
+	struct libgamma_gamma_ramps16 *ramps = malloc(sizeof(*ramps));
 	int r;
 	if (!ramps)
 		return fail(env, 0);
@@ -129,7 +129,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1create(JNIEnv *env, jclass cl
 jlongArray
 Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(JNIEnv *env, jclass class, jint red_size, jint green_size, jint blue_size)
 {
-	libgamma_gamma_ramps32_t *ramps = malloc(sizeof(libgamma_gamma_ramps32_t));
+	struct libgamma_gamma_ramps32 *ramps = malloc(sizeof(*ramps));
 	int r;
 	if (!ramps)
 		return fail(env, 0);
@@ -159,7 +159,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1create(JNIEnv *env, jclass cl
 jlongArray
 Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(JNIEnv *env, jclass class, jint red_size, jint green_size, jint blue_size)
 {
-	libgamma_gamma_ramps64_t *ramps = malloc(sizeof(libgamma_gamma_ramps64_t));
+	struct libgamma_gamma_ramps64 *ramps = malloc(sizeof(*ramps));
 	int r;
 	if (!ramps)
 		return fail(env, 0);
@@ -189,7 +189,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1create(JNIEnv *env, jclass cl
 jlongArray
 Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(JNIEnv *env, jclass class, jint red_size, jint green_size, jint blue_size)
 {
-	libgamma_gamma_rampsf_t *ramps = malloc(sizeof(libgamma_gamma_rampsf_t));
+	struct libgamma_gamma_rampsf *ramps = malloc(sizeof(*ramps));
 	int r;
 	if (!ramps)
 		return fail(env, 0);
@@ -219,7 +219,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1create(JNIEnv *env, jclass cla
 jlongArray
 Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(JNIEnv *env, jclass class, jint red_size, jint green_size, jint blue_size)
 {
-	libgamma_gamma_rampsd_t *ramps = malloc(sizeof(libgamma_gamma_rampsd_t));
+	struct libgamma_gamma_rampsd *ramps = malloc(sizeof(*ramps));
 	int r;
 	if (!ramps)
 		return fail(env, 0);
@@ -244,7 +244,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1create(JNIEnv *env, jclass cla
 void
 Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1free(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	libgamma_gamma_ramps8_free(this);
 	(void) env;
 	(void) class;
@@ -261,7 +261,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps8_1free(JNIEnv *env, jclass class
 void
 Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1free(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	libgamma_gamma_ramps16_free(this);
 	(void) env;
 	(void) class;
@@ -278,7 +278,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps16_1free(JNIEnv *env, jclass clas
 void
 Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1free(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	libgamma_gamma_ramps32_free(this);
 	(void) env;
 	(void) class;
@@ -295,7 +295,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps32_1free(JNIEnv *env, jclass clas
 void
 Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1free(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	libgamma_gamma_ramps64_free(this);
 	(void) env;
 	(void) class;
@@ -312,7 +312,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1ramps64_1free(JNIEnv *env, jclass clas
 void
 Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1free(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	libgamma_gamma_rampsf_free(this);
 	(void) env;
 	(void) class;
@@ -329,7 +329,7 @@ Java_libgamma_GammaRamps_libgamma_1gamma_1rampsf_1free(JNIEnv *env, jclass class
 void
 Java_libgamma_GammaRamps_libgamma_1gamma_1rampsd_1free(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	libgamma_gamma_rampsd_free(this);
 	(void) env;
 	(void) class;

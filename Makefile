@@ -44,6 +44,8 @@ OBJ =\
 	libgamma_Ramp.o\
 	libgamma_Site.o
 
+NATIVE_CLASSES = $$(printf '%s\n' $(OBJ:.o=) | sed 's/_/\./g' | tr '\n' ' ')
+
 JAVA_HDR = $(OBJ:.o=.h)
 JAVA_SRC = $(CLASS:.class=.java)
 
@@ -55,10 +57,10 @@ $(OBJ): $(JAVA_HDR)
 $(CLASS) $(JAVA_HDR): $(JAVA_SRC)
 	@set -e;\
 	if $(JAVAH) -version 2>/dev/null >/dev/null; then\
-		printf '%s\n' "$(JAVAH) -jni -d . -cp . $(JPKG).EQNative";\
-		$(JAVAH) -jni -d . -cp . $(JPKG).EQNative;\
 		printf '%s\n' "$(JAVAC) '-Xlint:all' -O -cp . -d . $(JAVA_SRC)";\
 		$(JAVAC) '-Xlint:all' -O -cp . -d . $(JAVA_SRC);\
+		printf '%s\n' "$(JAVAH) -jni -d . -cp . $(NATIVE_CLASSES)";\
+		$(JAVAH) -jni -d . -cp . $(NATIVE_CLASSES);\
 	else\
 		printf '%s\n' "$(JAVAC) '-Xlint:all' -O -h . -cp . -d . $(JAVA_SRC)";\
 		$(JAVAC) '-Xlint:all' -O -h . -cp . -d . $(JAVA_SRC);\

@@ -65,7 +65,7 @@ Java_libgamma_LibgammaException_value_1of_1error(JNIEnv *env, jclass class, jstr
 jint
 Java_libgamma_LibgammaException_libgamma_1group_1gid(JNIEnv *env, jclass class)
 {
-	return (jint)libgamma_group_gid;
+	return (jint)libgamma_group_gid_get();
 	(void) env;
 	(void) class;
 }
@@ -82,7 +82,7 @@ Java_libgamma_LibgammaException_libgamma_1group_1name(JNIEnv *env, jclass class)
 	 * and error handing makes this unnecessarily comples,
 	 * therefore we will simply skip it */
 
-	const char *do_not_free_this = libgamma_group_name;
+	const char *do_not_free_this = libgamma_group_name_get();
 	char *this_will_be_freed;
 	size_t n;
 	if (!do_not_free_this)

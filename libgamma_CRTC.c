@@ -34,7 +34,7 @@ fail(JNIEnv *env, int error_code)
 static jlongArray
 ok(JNIEnv *env, void *state)
 {
-	jlong a = (jlong)(size_t)state, z = 0;
+	jlong a = (jlong)(uintptr_t)state, z = 0;
 	jlongArray rc = (*env)->NewLongArray(env, 2);
 	(*env)->SetLongArrayRegion(env, rc, 0, 1, &a);
 	(*env)->SetLongArrayRegion(env, rc, 1, 1, &z);
@@ -52,8 +52,8 @@ ok(JNIEnv *env, void *state)
 jlongArray
 Java_libgamma_CRTC_libgamma_1crtc_1create(JNIEnv *env, jclass class, jlong partition, jint crtc)
 {
-	libgamma_crtc_state_t *state = malloc(sizeof(libgamma_crtc_state_t));
-	void *super = (void *)(size_t)partition;
+	struct libgamma_crtc_state *state = malloc(sizeof(*state));
+	void *super = (void *)(uintptr_t)partition;
 	int r;
 	if (!state)
 		return fail(env, 0);
@@ -73,7 +73,7 @@ Java_libgamma_CRTC_libgamma_1crtc_1create(JNIEnv *env, jclass class, jlong parti
 void
 Java_libgamma_CRTC_libgamma_1crtc_1free(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	libgamma_crtc_free(this);
 	(void) env;
 	(void) class;
@@ -88,7 +88,7 @@ Java_libgamma_CRTC_libgamma_1crtc_1free(JNIEnv *env, jclass class, jlong address
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1restore(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	int r = libgamma_crtc_restore(this);
 	if (r)
 		return r == LIBGAMMA_ERRNO_SET ? errno : r;
@@ -108,19 +108,19 @@ Java_libgamma_CRTC_libgamma_1crtc_1restore(JNIEnv *env, jclass class, jlong addr
 jobjectArray
 Java_libgamma_CRTC_libgamma_1get_1crtc_1information(JNIEnv *env, jclass class, jlong crtc, jint fields)
 {
-	void *this_voidp = (void *)(size_t)crtc;
-	libgamma_crtc_state_t *this = this_voidp;
+	void *this_voidp = (void *)(uintptr_t)crtc;
+	struct libgamma_crtc_state *this = this_voidp;
 	jbyteArray edid = NULL;
 	jstring connector_name = NULL;
 	jclass class_of_jobject = (*env)->FindClass(env, "java/lang/Object");
 	jintArray ints_ = (*env)->NewIntArray(env, 25);
 	jfloatArray gamma_ = (*env)->NewFloatArray(env, 3);
 	jobjectArray rc = (*env)->NewObjectArray(env, 4, class_of_jobject, NULL);
-	libgamma_crtc_information_t info;
+	struct libgamma_crtc_information info;
 	jint ints[25];
 	jfloat gamma[3];
 
-	libgamma_get_crtc_information(&info, this, fields);
+	libgamma_get_crtc_information(&info, sizeof(info), this, fields);
 
 	if (info.edid) {
 		edid = (*env)->NewByteArray(env, (jsize)info.edid_length);
@@ -183,10 +183,10 @@ Java_libgamma_CRTC_libgamma_1get_1crtc_1information(JNIEnv *env, jclass class, j
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps8(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *output_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_ramps8_t *output = output_voidp;
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *output_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_ramps8 *output = output_voidp;
 	int r = libgamma_crtc_get_gamma_ramps8(crtc, output);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
@@ -203,11 +203,11 @@ Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps8(JNIEnv *env, jclass class,
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps8(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *values_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_ramps8_t *values = values_voidp;
-	int r = libgamma_crtc_set_gamma_ramps8(crtc, *values);
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *values_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_ramps8 *values = values_voidp;
+	int r = libgamma_crtc_set_gamma_ramps8(crtc, values);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
 	(void) class;
@@ -223,10 +223,10 @@ Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps8(JNIEnv *env, jclass class,
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps16(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *output_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_ramps16_t *output = output_voidp;
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *output_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_ramps16 *output = output_voidp;
 	int r = libgamma_crtc_get_gamma_ramps16(crtc, output);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
@@ -243,11 +243,11 @@ Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps16(JNIEnv *env, jclass class
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps16(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *values_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_ramps16_t *values = values_voidp;
-	int r = libgamma_crtc_set_gamma_ramps16(crtc, *values);
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *values_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_ramps16 *values = values_voidp;
+	int r = libgamma_crtc_set_gamma_ramps16(crtc, values);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
 	(void) class;
@@ -263,10 +263,10 @@ Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps16(JNIEnv *env, jclass class
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps32(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *output_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_ramps32_t *output = output_voidp;
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *output_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_ramps32 *output = output_voidp;
 	int r = libgamma_crtc_get_gamma_ramps32(crtc, output);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
@@ -283,11 +283,11 @@ Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps32(JNIEnv *env, jclass class
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps32(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *values_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_ramps32_t *values = values_voidp;
-	int r = libgamma_crtc_set_gamma_ramps32(crtc, *values);
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *values_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_ramps32 *values = values_voidp;
+	int r = libgamma_crtc_set_gamma_ramps32(crtc, values);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
 	(void) class;
@@ -303,10 +303,10 @@ Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps32(JNIEnv *env, jclass class
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps64(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *output_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_ramps64_t *output = output_voidp;
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *output_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_ramps64 *output = output_voidp;
 	int r = libgamma_crtc_get_gamma_ramps64(crtc, output);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
@@ -323,11 +323,11 @@ Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1ramps64(JNIEnv *env, jclass class
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps64(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *values_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_ramps64_t *values = values_voidp;
-	int r = libgamma_crtc_set_gamma_ramps64(crtc, *values);
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *values_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_ramps64 *values = values_voidp;
+	int r = libgamma_crtc_set_gamma_ramps64(crtc, values);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
 	(void) class;
@@ -343,10 +343,10 @@ Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1ramps64(JNIEnv *env, jclass class
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsf(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *output_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_rampsf_t *output = output_voidp;
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *output_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_rampsf *output = output_voidp;
 	int r = libgamma_crtc_get_gamma_rampsf(crtc, output);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
@@ -363,11 +363,11 @@ Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsf(JNIEnv *env, jclass class,
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsf(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t * crtc = crtc_voidp;
-	void *values_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_rampsf_t * values = values_voidp;
-	int r = libgamma_crtc_set_gamma_rampsf(crtc, *values);
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state * crtc = crtc_voidp;
+	void *values_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_rampsf * values = values_voidp;
+	int r = libgamma_crtc_set_gamma_rampsf(crtc, values);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
 	(void) class;
@@ -383,10 +383,10 @@ Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsf(JNIEnv *env, jclass class,
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsd(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *output_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_rampsd_t *output = output_voidp;
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *output_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_rampsd *output = output_voidp;
 	int r = libgamma_crtc_get_gamma_rampsd(crtc, output);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
@@ -403,11 +403,11 @@ Java_libgamma_CRTC_libgamma_1crtc_1get_1gamma_1rampsd(JNIEnv *env, jclass class,
 jint
 Java_libgamma_CRTC_libgamma_1crtc_1set_1gamma_1rampsd(JNIEnv *env, jclass class, jlong address, jlong ramps)
 {
-	void *crtc_voidp = (void *)(size_t)address;
-	libgamma_crtc_state_t *crtc = crtc_voidp;
-	void *values_voidp = (void *)(size_t)ramps;
-	libgamma_gamma_rampsd_t *values = values_voidp;
-	int r = libgamma_crtc_set_gamma_rampsd(crtc, *values);
+	void *crtc_voidp = (void *)(uintptr_t)address;
+	struct libgamma_crtc_state *crtc = crtc_voidp;
+	void *values_voidp = (void *)(uintptr_t)ramps;
+	struct libgamma_gamma_rampsd *values = values_voidp;
+	int r = libgamma_crtc_set_gamma_rampsd(crtc, values);
 	return r == LIBGAMMA_ERRNO_SET ? errno : r;
 	(void) env;
 	(void) class;

@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 #include "libgamma_AdjustmentMethod.h"
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -63,31 +64,39 @@ Java_libgamma_AdjustmentMethod_libgamma_1is_1method_1available(JNIEnv *env, jcla
  * Return the capabilities of an adjustment method
  * 
  * @param   method  The adjustment method (display server and protocol)
- * @return          Input parameter to the constructor of {@link AdjustmentMethodCapabilities}
+ * @return          Element 0: Input parameter to the constructor of {@link AdjustmentMethodCapabilities}
+ *                  Element 1: Error code, zero on success
  */
-jlong
+jlongArray
 Java_libgamma_AdjustmentMethod_libgamma_1method_1capabilities(JNIEnv *env, jclass class, jint method)
 {
-	libgamma_method_capabilities_t caps;
-	jlong rc;
-
-	libgamma_method_capabilities(&caps, method);
+	jlongArray rv = (*env)->NewLongArray(env, 2);
+	struct libgamma_method_capabilities caps;
+	jlong rc = 0, e = 0;
+	int r = libgamma_method_capabilities(&caps, sizeof(caps), method);
+	if (r) {
+		e = (jlong)(r == LIBGAMMA_ERRNO_SET ? errno : r);
+		goto out;
+	}
 	rc = (jlong)(caps.crtc_information);
 	rc &= 0xFFFFFFFFLL;
-	rc |= caps.default_site_known            ? (1LL < 33) : 0;
-	rc |= caps.multiple_sites                ? (1LL < 34) : 0;
-	rc |= caps.multiple_partitions           ? (1LL < 35) : 0;
-	rc |= caps.multiple_crtcs                ? (1LL < 36) : 0;
-	rc |= caps.partitions_are_graphics_cards ? (1LL < 37) : 0;
-	rc |= caps.site_restore                  ? (1LL < 38) : 0;
-	rc |= caps.partition_restore             ? (1LL < 39) : 0;
-	rc |= caps.crtc_restore                  ? (1LL < 40) : 0;
-	rc |= caps.identical_gamma_sizes         ? (1LL < 41) : 0;
-	rc |= caps.fixed_gamma_size              ? (1LL < 42) : 0;
-	rc |= caps.fixed_gamma_depth             ? (1LL < 43) : 0;
-	rc |= caps.real                          ? (1LL < 44) : 0;
-	rc |= caps.fake                          ? (1LL < 45) : 0;
-	return rc;
+	rc |= caps.default_site_known            ? (1LL << 33) : 0;
+	rc |= caps.multiple_sites                ? (1LL << 34) : 0;
+	rc |= caps.multiple_partitions           ? (1LL << 35) : 0;
+	rc |= caps.multiple_crtcs                ? (1LL << 36) : 0;
+	rc |= caps.partitions_are_graphics_cards ? (1LL << 37) : 0;
+	rc |= caps.site_restore                  ? (1LL << 38) : 0;
+	rc |= caps.partition_restore             ? (1LL << 39) : 0;
+	rc |= caps.crtc_restore                  ? (1LL << 40) : 0;
+	rc |= caps.identical_gamma_sizes         ? (1LL << 41) : 0;
+	rc |= caps.fixed_gamma_size              ? (1LL << 42) : 0;
+	rc |= caps.fixed_gamma_depth             ? (1LL << 43) : 0;
+	rc |= caps.real                          ? (1LL << 44) : 0;
+	rc |= caps.fake                          ? (1LL << 45) : 0;
+out:
+	(*env)->SetLongArrayRegion(env, rv, 0, 1, &rc);
+	(*env)->SetLongArrayRegion(env, rv, 1, 1, &e);
+	return rv;
 	(void) env;
 	(void) class;
 }
@@ -106,7 +115,7 @@ Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site(JNIEnv *env, jcla
 	 * and error handing makes this unnecessarily comples,
 	 * therefore we will simply skip it */
 
-	char *do_not_free_this = libgamma_method_default_site(method);
+	const char *do_not_free_this = libgamma_method_default_site(method);
 	char *this_will_be_freed;
 	size_t n;
 	if (!do_not_free_this)

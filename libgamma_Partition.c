@@ -36,7 +36,7 @@ fail(JNIEnv *env, int error_code)
 static jlongArray
 ok(JNIEnv *env, void *state, size_t count)
 {
-	jlong a = (jlong)(size_t)state;
+	jlong a = (jlong)(uintptr_t)state;
 	jlong b = (jlong)count, z = 0;
 	jlongArray rc = (*env)->NewLongArray(env, 3);
 	(*env)->SetLongArrayRegion(env, rc, 0, 1, &a);
@@ -57,8 +57,8 @@ ok(JNIEnv *env, void *state, size_t count)
 jlongArray
 Java_libgamma_Partition_libgamma_1partition_1create(JNIEnv *env, jclass class, jlong site, jint partition)
 {
-	libgamma_partition_state_t *state = malloc(sizeof(libgamma_partition_state_t));
-	void *super = (void *)(size_t)site;
+	struct libgamma_partition_state *state = malloc(sizeof(*state));
+	void *super = (void *)(uintptr_t)site;
 	int r;
 	if (state == NULL)
 		return fail(env, 0);
@@ -78,7 +78,7 @@ Java_libgamma_Partition_libgamma_1partition_1create(JNIEnv *env, jclass class, j
 void
 Java_libgamma_Partition_libgamma_1partition_1free(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	libgamma_partition_free(this);
 	(void) env;
 	(void) class;
@@ -93,7 +93,7 @@ Java_libgamma_Partition_libgamma_1partition_1free(JNIEnv *env, jclass class, jlo
 jint
 Java_libgamma_Partition_libgamma_1partition_1restore(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	int r = libgamma_partition_restore(this);
 	if (r)
 		return r == LIBGAMMA_ERRNO_SET ? errno : r;

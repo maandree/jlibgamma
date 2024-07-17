@@ -13,7 +13,7 @@
 jshort
 Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1get(JNIEnv *env, jclass class, jlong address, jint stop)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	uint8_t *this = this_voidp;
 	return (jshort)(this[stop]);
 	(void) env;
@@ -30,7 +30,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1get(JNIEnv *env, jclass class, jlong
 jint
 Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1get(JNIEnv *env, jclass class, jlong address, jint stop)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	uint16_t *this = this_voidp;
 	return (jint)(this[stop]);
 	(void) env;
@@ -47,7 +47,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1get(JNIEnv *env, jclass class, jlon
 jlong
 Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1get(JNIEnv *env, jclass class, jlong address, jint stop)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	uint32_t *this = this_voidp;
 	return (jlong)(this[stop]);
 	(void) env;
@@ -64,7 +64,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1get(JNIEnv *env, jclass class, jlon
 jlong
 Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1get(JNIEnv *env, jclass class, jlong address, jint stop)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	uint64_t *this = this_voidp;
 	return (jlong)(this[stop]);
 	(void) env;
@@ -81,7 +81,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1get(JNIEnv *env, jclass class, jlon
 jfloat
 Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1get(JNIEnv *env, jclass class, jlong address, jint stop)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	float *this = this_voidp;
 	return (jfloat)(this[stop]);
 	(void) env;
@@ -98,7 +98,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1get(JNIEnv *env, jclass class, jlong
 jdouble
 Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1get(JNIEnv *env, jclass class, jlong address, jint stop)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	double *this = this_voidp;
 	return (jdouble)(this[stop]);
 	(void) env;
@@ -115,7 +115,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1get(JNIEnv *env, jclass class, jlong
 void
 Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1set(JNIEnv *env, jclass class, jlong address, jint stop, jshort value)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	uint8_t *this = this_voidp;
 	this[stop] = (uint8_t)value;
 	(void) env;
@@ -132,7 +132,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1ramps8_1set(JNIEnv *env, jclass class, jlong
 void
 Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1set(JNIEnv *env, jclass class, jlong address, jint stop, jint value)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	uint16_t *this = this_voidp;
 	this[stop] = (uint16_t)value;
 	(void) env;
@@ -149,7 +149,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1ramps16_1set(JNIEnv *env, jclass class, jlon
 void
 Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1set(JNIEnv *env, jclass class, jlong address, jint stop, jlong value)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	uint32_t *this = this_voidp;
 	this[stop] = (uint32_t)value;
 	(void) env;
@@ -166,7 +166,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1ramps32_1set(JNIEnv *env, jclass class, jlon
 void
 Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1set(JNIEnv *env, jclass class, jlong address, jint stop, jlong value)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	uint64_t *this = this_voidp;
 	this[stop] = (uint64_t)value;
 	(void) env;
@@ -184,7 +184,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1ramps64_1set(JNIEnv *env, jclass class, jlon
 void
 Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1set(JNIEnv *env, jclass class, jlong address, jint stop, jfloat value)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	float *this = this_voidp;
 	this[stop] = (float)value;
 	(void) env;
@@ -202,7 +202,7 @@ Java_libgamma_Ramp_libgamma_1gamma_1rampsf_1set(JNIEnv *env, jclass class, jlong
 void
 Java_libgamma_Ramp_libgamma_1gamma_1rampsd_1set(JNIEnv *env, jclass class, jlong address, jint stop, jdouble value)
 {
-	void *this_voidp = (void *)(size_t)address;
+	void *this_voidp = (void *)(uintptr_t)address;
 	double *this = this_voidp;
 	this[stop] = (double)value;
 	(void) env;

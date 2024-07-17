@@ -37,7 +37,7 @@ fail(JNIEnv *env, int error_code)
 static jlongArray
 ok(JNIEnv *env, void *state, size_t count)
 {
-	jlong a = (jlong)(size_t)state;
+	jlong a = (jlong)(uintptr_t)state;
 	jlong b = (jlong)count, z = 0;
 	jlongArray rc = (*env)->NewLongArray(env, 3);
 	(*env)->SetLongArrayRegion(env, rc, 0, 1, &a);
@@ -58,7 +58,7 @@ ok(JNIEnv *env, void *state, size_t count)
 jlongArray
 Java_libgamma_Site_libgamma_1site_1create(JNIEnv *env, jclass class, jint method, jstring site)
 {
-	libgamma_site_state_t *state = malloc(sizeof(libgamma_site_state_t));
+	struct libgamma_site_state *state = malloc(sizeof(*state));
 	const char *site_chars;
 	char *site_;
 	int r;
@@ -96,7 +96,7 @@ Java_libgamma_Site_libgamma_1site_1create(JNIEnv *env, jclass class, jint method
 void
 Java_libgamma_Site_libgamma_1site_1free(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	libgamma_site_free(this);
 	(void) env;
 	(void) class;
@@ -111,7 +111,7 @@ Java_libgamma_Site_libgamma_1site_1free(JNIEnv *env, jclass class, jlong address
 jint
 Java_libgamma_Site_libgamma_1site_1restore(JNIEnv *env, jclass class, jlong address)
 {
-	void *this = (void *)(size_t)address;
+	void *this = (void *)(uintptr_t)address;
 	int r = libgamma_site_restore(this);
 	if (r)
 		return r == LIBGAMMA_ERRNO_SET ? errno : r;

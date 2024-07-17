@@ -147,9 +147,12 @@ public enum AdjustmentMethod
 	 * 
 	 * @return   The capabilities of the adjustment method
 	 */
-	public AdjustmentMethodCapabilities get_capabilities()
+	public AdjustmentMethodCapabilities get_capabilities() throws LibgammaException
 	{
-		return new AdjustmentMethodCapabilities(libgamma_method_capabilities(this.value));
+		long[] r = libgamma_method_capabilities(this.value);
+		if (r[1] != 0)
+			throw new LibgammaException((int)(r[1]));
+		return new AdjustmentMethodCapabilities(r[0]);
 	}
     
 
@@ -202,9 +205,10 @@ public enum AdjustmentMethod
 	 * Return the capabilities of an adjustment method
 	 * 
 	 * @param   method  The adjustment method (display server and protocol)
-	 * @return          Input parameter to the constructor of {@link AdjustmentMethodCapabilities}
+	 * @return          Element 0: Input parameter to the constructor of {@link AdjustmentMethodCapabilities}
+	 *                  Eleemnt 1: Error code, zero on success
 	 */
-	private static native long libgamma_method_capabilities(int method);
+	private static native long[] libgamma_method_capabilities(int method);
 
 	/**
 	 * Return the default site for an adjustment method
