@@ -1,14 +1,14 @@
 RUNTIME DEPENDENCIES:
 
 	java-runtime-headless>=1.5
-	libgamma>=0.3
+	libgamma>=0.7.4
 	libc
 
 
 BUILD DEPENDENCIES:
 
 	java-environment>=1.5
-	libgamma>=0.3
+	libgamma>=0.7.4
 	libc
 	c99
 	make
