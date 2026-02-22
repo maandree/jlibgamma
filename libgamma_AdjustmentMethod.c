@@ -46,7 +46,7 @@ Java_libgamma_AdjustmentMethod_libgamma_1list_1methods(JNIEnv *env, jclass class
 }
 
 /**
- * Check whether an adjustment method is available, non-existing (invalid) methods will be
+ * Check whether an adjustment method is available; non-existing (invalid) methods will be
  * identified as not available under the rationale that the library may be out of date
  * 
  * @param   method  The adjustment method
@@ -111,8 +111,8 @@ out:
 jstring
 Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site(JNIEnv *env, jclass class, jint method)
 {
-	/* It is really unlikely that `malloc` returns `NULL` here
-	 * and error handing makes this unnecessarily comples,
+	/* It is really unlikely that `malloc` returns `NULL` here,
+	 * and error handling makes this unnecessarily complex;
 	 * therefore we will simply skip it */
 
 	const char *do_not_free_this = libgamma_method_default_site(method);
@@ -134,15 +134,15 @@ Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site(JNIEnv *env, jcla
  * the default site for an adjustment method
  * 
  * @param   method  The adjustment method (display server and protocol)
- * @return          The environ variables that is used to determine the
+ * @return          The environment variables that are used to determine the
  *                  default site; {@code null} if there is none, that is,
  *                  if the method does not support multiple sites
  */
 jstring
 Java_libgamma_AdjustmentMethod_libgamma_1method_1default_1site_1variable(JNIEnv *env, jclass class, jint method)
 {
-	/* It is really unlikely that `malloc` returns `NULL` here
-	 * and error handing makes this unnecessarily comples,
+	/* It is really unlikely that `malloc` returns `NULL` here,
+	 * and error handling makes this unnecessarily complex;
 	 * therefore we will simply skip it */
 
 	const char *do_not_free_this = libgamma_method_default_site_variable(method);

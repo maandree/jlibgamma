@@ -17,10 +17,10 @@
 jstring
 Java_libgamma_LibgammaException_name_1of_1error(JNIEnv *env, jclass class, jint value)
 {
-	/* It is really unlikely that `malloc` returns `NULL` here
-	 * and error handing makes this unnecessarily comples,
+	/* It is really unlikely that `malloc` returns `NULL` here,
+	 * and error handling makes this unnecessarily complex;
 	 * therefore we will simply skip it */
-  
+
 	const char *do_not_free_this = libgamma_name_of_error(value);
 	char *this_will_be_freed;
 	size_t n;
@@ -37,7 +37,7 @@ Java_libgamma_LibgammaException_name_1of_1error(JNIEnv *env, jclass class, jint 
 
 /**
  * Return the value of a <tt>libgamma</tt> error definition
- * refered to by name
+ * referred to by name
  * 
  * @param   name  The name of the definition associated with the error code
  * @return        The error code, zero if the name is {@code null}
@@ -78,8 +78,8 @@ Java_libgamma_LibgammaException_libgamma_1group_1gid(JNIEnv *env, jclass class)
 jstring
 Java_libgamma_LibgammaException_libgamma_1group_1name(JNIEnv *env, jclass class)
 {
-	/* It is really unlikely that `malloc` returns `NULL` here
-	 * and error handing makes this unnecessarily comples,
+	/* It is really unlikely that `malloc` returns `NULL` here,
+	 * and error handling makes this unnecessarily complex;
 	 * therefore we will simply skip it */
 
 	const char *do_not_free_this = libgamma_group_name_get();
@@ -105,9 +105,9 @@ Java_libgamma_LibgammaException_libgamma_1group_1name(JNIEnv *env, jclass class)
 jstring
 Java_libgamma_LibgammaException_strerror(JNIEnv *env, jclass class, jint error_code)
 {
-	/* It is really unlikely that `malloc` returns `NULL` here
-	 * and error handing makes this unnecessarily comples,
-	 * therefore we will simply skip it */
+	/* It is really unlikely that `malloc` returns `NULL` here,
+	 * and error handling makes this unnecessarily complex;
+	 * therefore we will simply skip it. */
 
 	const char *do_not_free_this = strerror(error_code);
 	char *this_will_be_freed;
